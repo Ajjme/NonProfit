@@ -9,6 +9,7 @@
 # #install.packages("geojsonio", type = "source")
 # ##install.packages("leaflet")
 # install.packages("leaflet")
+#install.packages("janitor")
 
 #Load Packages
 library(tidyverse)
@@ -19,3 +20,4 @@ library(dplyr)
 library(htmlwidgets)
 library(jsonlite)
 library(leaflet)
+library(janitor)
