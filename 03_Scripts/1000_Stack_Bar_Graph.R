@@ -1,12 +1,8 @@
-#Stacked Bar graph 
-library(tidyverse)
-library(ggplot2)
-library(plotly)
-#library(rjson)
-library(dplyr)
-library(jsonlite)
 
-Total_Scores_Data <- read.csv("Total_Scores_Data - Sheet1.csv", skip = 1, header = T)
+
+source("./03_Scripts/000_init.R")
+
+Total_Scores_Data <- read.csv("./02_inputs/Total_Scores_Data - Sheet1.csv", skip = 1, header = T)
 
 Total_Scores <- Total_Scores_Data %>% select(#Climate.action.plan.Score, Green.House.Gas.Inventory.Score , Climate.Emergency.Score 
                                              #, General.Plan.with.Climate.Element.Score, 
