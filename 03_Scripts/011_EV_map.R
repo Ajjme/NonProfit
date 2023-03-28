@@ -2,7 +2,7 @@
 
 source("./03_Scripts/000_init.R")
 
-EV_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds.rds")
+EV_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
 Hydrogen_stations <- readRDS(file = "./04_Outputs/rds/Hydrogen_stations.rds")
 CNG_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
 #style------------------

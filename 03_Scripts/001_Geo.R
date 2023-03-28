@@ -21,3 +21,28 @@ register_google(key)
 
 San_Ramon_map <- get_map(location ='San Ramon', source="stamen")
 ggmap(San_Ramon_map)
+
+
+cities_ls <- full_mce %>% 
+  select(community)
+
+# Convert the data frame to a character vector
+cities_vec <- unlist(cities_ls$community)
+
+# View the resulting vector
+cities_vec
+
+#cities2 <- c("San Francisco", "Los Angeles", "San Diego", "Sacramento")
+
+
+coords <- geocode(cities_vec, output = "more")
+
+# Extract the city name from the location field and add it as a new column
+coords$city <- gsub(",.*$", "", coords$address)
+
+# View the resulting data frame
+coords %>% 
+  select(city, lon, lat)%>%
+  na.omit()
+
+saveRDS(coords, file = "./04_Outputs/rds/coords.rds")
