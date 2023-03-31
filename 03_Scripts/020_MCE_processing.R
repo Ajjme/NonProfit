@@ -1,5 +1,9 @@
 
 source("./03_Scripts/000_init.R")
+#impact report 
+#https://www.mcecleanenergy.org/wp-content/uploads/2023/01/MCE-Impact-Report-2022_01092023.pdf
+#impact report for images
+#https://www.mcecleanenergy.org/wp-content/uploads/2020/07/About-MCE-Leave-Behind.pdf
 
 ccc_mce_df <- read.csv("./02_inputs/Contra_Costa_MCE_Data.csv", skip = 3, header = T) %>% 
   clean_names() %>% 

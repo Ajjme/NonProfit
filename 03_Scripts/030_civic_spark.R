@@ -3,11 +3,12 @@
 # I am just going to count and work off our old data
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
-#may have to change downloaded name
+
+#update by hand
 civic_data <- read_xlsx("./02_inputs/ContraCosta CivicSpark Projects 2022.xlsx") %>% 
   clean_names()
 
-# need to match anf clean city names 
+# need to match and clean city names 
 # probably best to do that by hand
 
 
