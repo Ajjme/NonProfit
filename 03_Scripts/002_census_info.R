@@ -78,13 +78,31 @@ acs_general_pct <- acs_general_pct %>%
 # #full_options <- listCensusMetadata(name = "acs/acs1", vintage = 2021, type = "variables")
 # 
 # ## Get selected broadband variable
+#https://api.census.gov/data/2019/acs/acs5/variables.html
 acs_general_pct <- getCensus(name = "acs/acs5", vintage = 2021,
-                               vars = c("B01001_001E"), # Selected broadband variables
+                               vars = c("B01001_001E", "B01001_001E", "B24114_454E", "B08014_003E", "B08014_004E",
+                                        "B08014_005E","B08014_006E", "B08014_007E","B08014_001E", "B08134_071E", "B08134_061E",
+                                        "B08134_031E", "B08134_021E", "B08132_061E", "B24114_407E", "B24124_407E"), # Selected broadband variables
                                region = "place:*", # '*' mean all counties
                                regionin = "state:06") # 06 is california state FIPS code
 
-acs_general_pct <- acs_general_pct %>%
+acs_general_pct_named <- acs_general_pct %>%
   mutate_at(c('place'), as.character)%>%
+  rename(total_pop = B01001_001E,
+         heat_cool_ref_installers = B24114_454E,
+         one_vehicle = B08014_003E,
+         two_vehicle = B08014_004E,
+         three_vehicle = B08014_005E,
+         four_vehicle = B08014_006E,
+         five_vehicle = B08014_007E,
+         total_vehicle = B08014_001E,
+         public_trans_bus = B08134_071E,
+         public_trans = B08134_061E,
+         carpool = B08134_031E,
+         drove_alone = B08134_021E,
+         walked_to_work = B08132_061E,
+         electrician = B24114_407E,
+         elect_2 = B24124_407E) %>% 
   mutate(place_FIPS = paste0(state, place)) 
 #add vehicles 
 # travel tiem 
@@ -125,7 +143,7 @@ place_hier_ca <- read.csv("https://www2.census.gov/geo/docs/reference/codes/PLAC
 # 
 # ### lets do QC by comparing total population stats
 # 
-acs_general_pct_ca_city <- left_join(acs_general_pct, place_hier_ca,
+acs_general_pct_ca_city <- left_join(acs_general_pct_named, place_hier_ca,
                                    by = c("place"= "placefp"))
 # 
 saveRDS(acs_general_pct_ca_city, file = "./04_Outputs/rds/acs_general_pct_ca_city.rds")

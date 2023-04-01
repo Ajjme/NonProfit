@@ -26,6 +26,12 @@ library(janitor)
 library(ggthemes)
 library(xlsx)
 
+#Colors
+
+#Clean names Function
+
+
+
 my_theme <- function(){
   theme_bw(base_size = 12) +
     theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "black"),

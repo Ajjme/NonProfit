@@ -10,3 +10,4 @@ zip_code_map <- read.csv("./02_inputs/uszips.csv") %>%
 ccc_zip_code_map <- zip_code_map %>% 
   filter(str_detect(county_name, "Contra Costa"))
 
+saveRDS(ccc_zip_code_map, file = "./04_Outputs/rds/ccc_zip_code_map.rds")
