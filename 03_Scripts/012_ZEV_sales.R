@@ -7,8 +7,8 @@ zev_sales_zip <- read_xlsx("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xl
 
 zip_map_ccc <- readRDS(file = "./04_Outputs/rds/ccc_zip_code_map.rds")
 
-
-zev_sales_county <- read_xlsx("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
+library(readxl)
+zev_sales_county <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
   clean_names()
 
 ### bar graph
@@ -57,7 +57,7 @@ join_county_fips <- left_join(zev_sales_one_value, county_fips_map, by= "county"
   mutate_at(vars(fips), as.character)%>% 
   mutate_all(~ifelse(is.na(.), 0, .))
 
-
+### include time frame
 ### need to check matching--------------------------
 g <- list(
   fitbounds = "locations",
