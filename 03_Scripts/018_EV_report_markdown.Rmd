@@ -19,7 +19,6 @@ When you click the **Knit** button a document will be generated that includes bo
 library(tidyverse)
 library(ggplot2)
 library(plotly)
-#library(rjson)
 library(dplyr)
 library(htmlwidgets)
 library(jsonlite)
@@ -116,7 +115,11 @@ fig <- fig %>% layout(
 
 fig
 ```
-```{r}
+
+```{r scatterplot, fig.width=8, fig.height=6}
+plot(x,y)
+```
+Note that if include=FALSE, all of the code, results, and figures will be suppressed. If include=TRUE and results="hide", the results will be hidden but figures will still be shown. To hide the figures, use fig.show="hide".
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
