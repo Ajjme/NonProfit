@@ -10,13 +10,14 @@ interconnection <- simple_PGE_solar_data %>%
 # Create a bar chart of the count of interconnection_program and service_city
 p <- ggplot(interconnection, aes(x = service_city, fill = interconnection_program)) +
   geom_bar() +
+  my_enviro_theme() +
   labs(title = "Count of Interconnection Programs by Service City",
        x = "Service City",
-       y = "Count",
+       y = "Number of Installs",
        fill = "Interconnection Program")
 
 # Convert the ggplot object to a plotly object and add interactive features
 ggplotly(p) %>%
-  layout(legend = list(orientation = "v", x = 1, y = 0.5),
+  layout(legend = list(orientation = "v", x = 1.025, y = 0.5),
          xaxis = list(tickangle = 45, tickfont = list(size = 12))) %>%
   config(displayModeBar = TRUE)

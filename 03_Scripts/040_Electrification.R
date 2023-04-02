@@ -2,9 +2,11 @@
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #may have to change downloaded name
-sum_old_data <- read.csv("./02_inputs/2022_sum_data.csv", skip = 1) %>% 
-  clean_names()
+electrification_data <- read.csv("./02_inputs/2022_sum_data.csv", skip = 1) %>% 
+  clean_names() %>% 
+  select(city, "electrification_preliminary" ,"electrification_score")
 
+saveRDS(electrification_data, file = "./04_Outputs/rds/electrification_data.rds")
 #need to set up the city pin and proper city names
 
 ### Email ---------------

@@ -46,3 +46,10 @@ coords %>%
   na.omit()
 
 saveRDS(coords, file = "./04_Outputs/rds/coords.rds")
+
+### wow this acturally works
+library(sf)
+library(ggplot2)
+
+# Load the shapefile of California cities
+ca_cities <- st_read("./02_inputs/BND_LAFCO_City_SOI.shx")
