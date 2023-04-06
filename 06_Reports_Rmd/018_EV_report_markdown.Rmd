@@ -45,7 +45,7 @@ Electric Vehicles (EVs) are revolutionizing the transportation industry by offer
 
 In addition to new EV sales and charging infrastructure data, this report also includes graphs on key factors related to the EV landscape. This includes the average cost of ownership, battery material sourcing, car fires, and well-to-wheel emissions. By providing a comprehensive analysis of these factors, the report offers a holistic view of the EV landscape in California and empowers readers to make informed decisions about the future of sustainable transportation.
 
-## Contra Costa County City Rankings
+## Contra Costa County City Electric Transportation Rankings
 ```{r}
 # this is a stacked bar graph of standardized 2022 zEV sales and Chargers per car on road, with bonus points given to brentwood for the bus program
 ```
@@ -56,7 +56,6 @@ In addition to new EV sales and charging infrastructure data, this report also i
 ```
 
 The presented graph displays a ranking of 2022 Zero Emission Vehicle (ZEV) car sales, standardized by the number of cars in each city. The data used for this graph was sourced from the California Energy Commission (CEC)
-
 
 ## Charging Stations per car registered in each city
 ```{r}
@@ -76,18 +75,23 @@ In addition to the School Bus Replacement Program, the California Air Resources 
 
 ## Average Cost of Ownership
 ```{r}
-
+#going to make a summary graph with the 4 cars that they have in it
 ```
-
+Calculate you cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
 
 ## Car Fires
 ```{r}
+library(htmltools)
+# Load the saved HTML file
+vehicle_fires_html <- readLines("vehicle_fires.html")
 
+# Display the HTML file using the HTML() function
+HTML(paste(vehicle_fires_html, collapse = "\n"))
 ```
 
 ## Battery Material Sourcing
 ```{r}
-
+#Just make material of the most recent and show that the new ones have less colbalt
 ```
 
 
