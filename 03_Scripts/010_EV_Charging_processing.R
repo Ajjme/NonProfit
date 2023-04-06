@@ -20,8 +20,6 @@ Cities_list <- list("San Ramon", "Danville", "Antioch", "Brentwood","Clayton",
 EV_stations <- Alt_stations %>% select(ï..Fuel.Type.Code, City, Longitude, Latitude, State, EV.Level1.EVSE.Num, EV.Level2.EVSE.Num, EV.DC.Fast.Count, EV.Network, ID, Facility.Type, EV.Pricing, EV.On.Site.Renewable.Source, Restricted.Access) %>%
   filter(ï..Fuel.Type.Code == "ELEC") %>%
   filter(State == "CA") %>%
-  #filter(City == "San Ramon"| City =="Danville"| City =="Antioch"|City =="Brentwood"|City =="Clayton"|City == "Concord"|City == "El Cerrito"|City == "Hercules"|City == "Lafayette"|City == "Martinez"|City == 'Moraga'|City == "Oakley"|City == "Orinda"|City == "Pinole"|City == "Pittsburg"|City == "Pleasant Hill"|City == "Richmond"|City == "San Pablo"|City == "San Ramon"|City == "Walnut Creek" )%>%
-  #filter(City == Cities_list)%>%
   replace(is.na(.), 0)%>%
   mutate(Total_stations = EV.Level1.EVSE.Num+EV.Level2.EVSE.Num+EV.DC.Fast.Count)
 
@@ -29,11 +27,56 @@ EV_stations <- Alt_stations %>% select(ï..Fuel.Type.Code, City, Longitude, Lati
 EV_stations_total <- EV_stations%>%
   group_by(City)%>%
   summarise_at(vars(Total_stations),              # Specify column
-      list(name = sum))
+      list(Total_stations = sum))
 
+EV_stations_total_ccc <- EV_stations_total %>%
+  filter(
+    City == "San Ramon" |
+      City == "Danville" |
+      City == "Antioch" |
+      City == "Brentwood" |
+      City == "Clayton" |
+      City == "Concord" |
+      City == "El Cerrito" |
+      City == "Hercules" |
+      City == "Lafayette" |
+      City == "Martinez" |
+      City == 'Moraga' |
+      City == "Oakley" |
+      City == "Orinda" |
+      City == "Pinole" |
+      City == "Pittsburg" |
+      City == "Pleasant Hill" |
+      City == "Richmond" |
+      City == "San Pablo" | City == "San Ramon" |
+      City == "Walnut Creek"
+  ) 
+
+EV_stations_ccc <- EV_stations %>%
+  filter(
+    City == "San Ramon" |
+      City == "Danville" |
+      City == "Antioch" |
+      City == "Brentwood" |
+      City == "Clayton" |
+      City == "Concord" |
+      City == "El Cerrito" |
+      City == "Hercules" |
+      City == "Lafayette" |
+      City == "Martinez" |
+      City == 'Moraga' |
+      City == "Oakley" |
+      City == "Orinda" |
+      City == "Pinole" |
+      City == "Pittsburg" |
+      City == "Pleasant Hill" |
+      City == "Richmond" |
+      City == "San Pablo" | City == "San Ramon" |
+      City == "Walnut Creek"
+  ) 
 #QC
-str(EV_stations)
-sapply(EV_stations, class) 
+# str(EV_stations)
+# sapply(EV_stations, class) 
 
 ### other stations ----------------
 Hydrogen_stations <-
@@ -72,6 +115,11 @@ saveRDS(Hydrogen_stations, file = "./04_Outputs/rds/Hydrogen_stations.rds")
 
 saveRDS(EV_stations, file = "./04_Outputs/rds/EV_stations.rds")
 
+saveRDS(EV_stations_total, file = "./04_Outputs/rds/EV_stations_total.rds")
+
+saveRDS(EV_stations_total_ccc, file = "./04_Outputs/rds/EV_stations_total_ccc.rds")
+
+saveRDS(EV_stations_ccc, file = "./04_Outputs/rds/EV_stations_ccc.rds")
 ### Archive -----------
 
 # EV_stations <- Alt_stations %>% select(Fuel.Type.Code, City, Longitude, Latitude, State, EV.Level1.EVSE.Num, EV.Level2.EVSE.Num, EV.DC.Fast.Count, EV.Network, ID, Facility.Type, EV.Pricing, EV.On.Site.Renewable.Source, Restricted.Access) %>%

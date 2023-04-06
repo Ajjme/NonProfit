@@ -28,10 +28,53 @@ library(ggthemes)
 library(lubridate)
 #Colors
 
+#Be sure to set the entire column to lower case first
 #Clean names Function
+#function only works if you have a column named city
+clean_city_names <- function(x){
+  xx <- x %>% 
+    mutate(city =
+             case_when(
+               str_detect(city, "anti") ~ "Antioch",
+               str_detect(city, "brent") ~ "Brentwood",
+               str_detect(city, "clay") ~ "Clayton",
+               str_detect(city, "conc") ~ "Concord",
+               str_detect(city, "danv") ~ "Danville",
+               str_detect(city, "cerr") ~ "El Cerrito",
+               str_detect(city, "herc") ~ "Hercules",
+               str_detect(city, "lafa") ~ "Lafayette",
+               str_detect(city, "mart") ~ "Martinez",
+               str_detect(city, "mora") ~ "Moraga",
+               str_detect(city, "oakl") ~ "Oakley",
+               str_detect(city, "orin") ~ "Orinda",
+               str_detect(city, "pin0") ~ "Pinole",
+               str_detect(city, "pitt") ~ "Pittsburg",
+               str_detect(city, "pleas") ~ "Pleasant Hill",
+               str_detect(city, "rich") ~ "Richmond",
+               str_detect(city, "pablo") ~ "San Pablo",
+               str_detect(city, "ramo") ~ "San Ramon",
+               str_detect(city, "waln") ~ "Walnut Creek",
+               str_detect(city, "unincor") ~ "Unincorporated Contra Costa County",
+               TRUE ~ city ))
+}
 
-
-
+my_future_theme <- function() {
+  theme_minimal(base_size = 14) +
+    theme(
+      panel.grid.major = element_line(color = "#ECECEC"),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      legend.background = element_rect(fill = "transparent", color = NA),
+      legend.position = c(0.85, 0.15),
+      legend.text = element_text(size = 12),
+      plot.title = element_text(size = 24, hjust = 0.5, face = "bold"),
+      axis.title = element_text(size = 16),
+      axis.text = element_text(size = 14, color = "#666666"),
+      plot.background = element_rect(fill = "#F9F9F9"),
+      panel.background = element_rect(fill = "white"),
+      plot.margin = unit(c(1,1,1,1), "cm")
+    )
+}
 my_theme <- function(){
   theme_bw(base_size = 12) +
     theme(plot.title = element_text(hjust = 0.5, size = 14, face = "bold", color = "black"),

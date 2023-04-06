@@ -85,6 +85,9 @@ fig <- fig %>% layout(
 )
 
 fig
+
+
+
 # California Energy Commission School Bus Replacement Program to replace California's
 # oldest diesel buses with all-new battery electric buses and install supporting charging 
 # infrastructure. This dashboard will be updated quarterly to display the progress in delivering
