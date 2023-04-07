@@ -4,6 +4,7 @@ source("./03_Scripts/000_init.R")
 
 EV_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
 EV_stations_total_ccc <- readRDS(file = "./04_Outputs/rds/EV_stations_total_ccc.rds")
+EV_stations_ccc <- readRDS( file = "./04_Outputs/rds/EV_stations_ccc.rds")
 Hydrogen_stations <- readRDS(file = "./04_Outputs/rds/Hydrogen_stations.rds")
 CNG_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
 #style------------------
@@ -35,8 +36,8 @@ map_of_EV_small_ccc <-leaflet(data = EV_stations_ccc) %>% addTiles() %>%
   addGeoJSON(Cities, weight = 1, color = "#444444", fill = FALSE)%>%
   addAwesomeMarkers(lng = ~Longitude, lat = ~Latitude, popup = ~as.character(Facility.Type), icon=icons, label = ~as.character(Total_stations))
 
-saveWidget(map_of_EV_small_ccc, file="./04_Outputs/html/map_of_EV_ccc.html")
 
+saveWidget(map_of_EV_small_ccc, file="./06_Reports_Rmd/map_of_EV_small_full_ccc.html")
 
 ####
 ###big file ####
@@ -68,7 +69,7 @@ map_of_EV_small <-leaflet(data = EV_stations) %>% addTiles() %>%
   addGeoJSON(Cities, weight = 1, color = "#444444", fill = FALSE)%>%
   addAwesomeMarkers(lng = ~Longitude, lat = ~Latitude, popup = ~as.character(Facility.Type), icon=icons, label = ~as.character(Total_stations))
 
-#saveWidget(map_of_EV_small, file="./04_Outputs/html/map_of_EV_small_full.html")
+saveWidget(map_of_EV_small, file="./06_Reports_Rmd/map_of_EV_small_full.html")
 
 #Custer------------
 leaflet(data = EV_stations) %>% addTiles() %>%

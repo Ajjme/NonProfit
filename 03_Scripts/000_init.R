@@ -10,21 +10,22 @@
 # ##install.packages("leaflet")
 # install.packages("leaflet")
 #install.packages("janitor")
-install.packages("xlsx")
+#install.packages("xlsx")
 
 
 #Load Packages
 library(tidyverse)
 library(ggplot2)
 library(plotly)
-#library(rjson)
+library(rjson)
 library(dplyr)
 library(htmlwidgets)
 library(jsonlite)
 library(leaflet)
 library(janitor)
 library(ggthemes)
-#library(xlsx)
+library(readxl)
+library(xlsx)
 library(lubridate)
 #Colors
 
@@ -47,7 +48,7 @@ clean_city_names <- function(x){
                str_detect(city, "mora") ~ "Moraga",
                str_detect(city, "oakl") ~ "Oakley",
                str_detect(city, "orin") ~ "Orinda",
-               str_detect(city, "pin0") ~ "Pinole",
+               str_detect(city, "pino") ~ "Pinole",
                str_detect(city, "pitt") ~ "Pittsburg",
                str_detect(city, "pleas") ~ "Pleasant Hill",
                str_detect(city, "rich") ~ "Richmond",
@@ -56,6 +57,33 @@ clean_city_names <- function(x){
                str_detect(city, "waln") ~ "Walnut Creek",
                str_detect(city, "unincor") ~ "Unincorporated Contra Costa County",
                TRUE ~ city ))
+}
+
+clean_city_names_uni_ccc <- function(x){
+  xx <- x %>% 
+    mutate(city =
+             case_when(
+               str_detect(city, "anti") ~ "Antioch",
+               str_detect(city, "brent") ~ "Brentwood",
+               str_detect(city, "clay") ~ "Clayton",
+               str_detect(city, "conc") ~ "Concord",
+               str_detect(city, "danv") ~ "Danville",
+               str_detect(city, "cerr") ~ "El Cerrito",
+               str_detect(city, "herc") ~ "Hercules",
+               str_detect(city, "lafa") ~ "Lafayette",
+               str_detect(city, "mart") ~ "Martinez",
+               str_detect(city, "mora") ~ "Moraga",
+               str_detect(city, "oakl") ~ "Oakley",
+               str_detect(city, "orin") ~ "Orinda",
+               str_detect(city, "pino") ~ "Pinole",
+               str_detect(city, "pitt") ~ "Pittsburg",
+               str_detect(city, "pleas") ~ "Pleasant Hill",
+               str_detect(city, "rich") ~ "Richmond",
+               str_detect(city, "pablo") ~ "San Pablo",
+               str_detect(city, "ramo") ~ "San Ramon",
+               str_detect(city, "waln") ~ "Walnut Creek",
+               str_detect(city, "unincor") ~ "Unincorporated Contra Costa County",
+               TRUE ~ "Unincorporated Contra Costa County" ))
 }
 
 my_future_theme <- function() {
