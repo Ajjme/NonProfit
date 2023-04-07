@@ -55,7 +55,7 @@ clean_city_names <- function(x){
                str_detect(city, "pablo") ~ "San Pablo",
                str_detect(city, "ramo") ~ "San Ramon",
                str_detect(city, "waln") ~ "Walnut Creek",
-               str_detect(city, "unincor") ~ "Unincorporated Contra Costa County",
+               str_detect(city, "uni") ~ "Uni. CCC",
                TRUE ~ city ))
 }
 
@@ -82,8 +82,8 @@ clean_city_names_uni_ccc <- function(x){
                str_detect(city, "pablo") ~ "San Pablo",
                str_detect(city, "ramo") ~ "San Ramon",
                str_detect(city, "waln") ~ "Walnut Creek",
-               str_detect(city, "unincor") ~ "Unincorporated Contra Costa County",
-               TRUE ~ "Unincorporated Contra Costa County" ))
+               str_detect(city, "uni") ~ "Uni. CCC",
+               TRUE ~ "Uni. CCC" ))
 }
 
 my_future_theme <- function() {

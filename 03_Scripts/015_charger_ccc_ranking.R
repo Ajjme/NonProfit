@@ -5,13 +5,18 @@ EV_stations_total_ccc <- readRDS(file = "./04_Outputs/rds/EV_stations_total_ccc.
   # Convert column names to lowercase
   rename_all(tolower) %>%
   # Convert strings in 'city' column to lowercase
-  mutate(city = tolower(city))
+  mutate(city = tolower(city)) 
+
+new_row <- data.frame(city = "uni. ccc", total_stations = 5)
+EV_stations_total_ccc <- bind_rows(EV_stations_total_ccc, new_row)
 
 EV_stations_total_ccc$Total_stations <- as.numeric(EV_stations_total_ccc$Total_stations)
   # input number of cars-------------------
 num_vehicles <- readRDS(file = "./04_Outputs/rds/full_ccc_census.rds") %>% 
   clean_names() %>% 
-  select(city, total_vehicle)
+  select(city, total_vehicle) %>% 
+  mutate(city = tolower(city)) %>% 
+  clean_city_names()
 
 EV_stations_total_ccc_clean <- clean_city_names(EV_stations_total_ccc)
 

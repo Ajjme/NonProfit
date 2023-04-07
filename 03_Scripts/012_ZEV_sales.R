@@ -32,14 +32,13 @@ ZEV_sales_city <- ZEV_sales_by_city_clean_uni_ccc %>%
 num_vehicles <- readRDS(file = "./04_Outputs/rds/full_ccc_census.rds") %>% 
   clean_names() %>% 
   select(city, total_vehicle) %>% 
-  mutate(city = if_else(city == "Uni_CCC", "Unincorporated Contra Costa County", city)) 
+  mutate(city = if_else(city == "Uni_CCC", "Uni. CCC", city)) 
   
 
 #standardize ----------------
 ZEV_sales_city_standardized <- full_join(num_vehicles, ZEV_sales_city, by = "city") %>% 
   mutate(total_vehicle_per_zev = (total_vehicle/total_vehicles)) %>% 
-  mutate(zev_per_total_vehicle = (total_vehicles/total_vehicle)) %>% 
-  drop_na()
+  mutate(zev_per_total_vehicle = (total_vehicles/total_vehicle))
 ### Bar------------------------
 #Prep-----------
 

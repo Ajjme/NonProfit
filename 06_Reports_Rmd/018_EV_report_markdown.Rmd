@@ -12,11 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 <img src="image.jpeg" class="logo">
-```{r}
-
-```
-
-
 
 ```{r, include=FALSE}
 
@@ -46,9 +41,9 @@ Electric Vehicles (EVs) are revolutionizing the transportation industry by offer
 In addition to new EV sales and charging infrastructure data, this report also includes graphs on key factors related to the EV landscape. This includes the average cost of ownership, battery material sourcing, car fires, and well-to-wheel emissions. By providing a comprehensive analysis of these factors, the report offers a holistic view of the EV landscape in California and empowers readers to make informed decisions about the future of sustainable transportation.
 
 ## Contra Costa County City Electric Transportation Rankings
-```{r, fig.width=5, fig.height=3}
-# this is a stacked bar graph of standardized 2022 zEV sales and Chargers per car on road, with bonus points given to brentwood for the bus program
-
+```{r, echo=FALSE}
+plotly_obj_scores_ev <- readRDS(file = "plotly_obj_scores_ev.rds")
+plotly_obj_scores_ev
 ```
 
 ## ZEV sales for each city Standardized by number of cars registered in the city
@@ -124,9 +119,10 @@ plot_ly(EV_stations_standardized, x = ~city, y = ~chargers_per_total_vehicle_sca
 
 This graph ranks the cities of Contra Costa County on the number of Charging stations per car in their city. Data collected from the Alternate fuel database.
 
-```{r}
-
+```{r, echo=FALSE}
+plotly_obj_buses <- readRDS(file = "plotly_obj_buses.rds")
 #brentwood EV Bus program
+plotly_obj_buses
 ```
 The California Energy Commission (CEC) has launched the School Bus Replacement Program, which aims to replace California's oldest diesel buses with all-new battery electric buses and install supporting charging infrastructure. 
 In addition to the School Bus Replacement Program, the California Air Resources Board (CARB) provides funding for electric school buses and supports the transition to a zero-emission school bus fleet. Data on those recipients has not been included in this report. If you know how/where to get that information please reach out.
@@ -141,17 +137,14 @@ map_of_EV_small_ccc
 ```{r}
 #going to make a summary graph with the 4 cars that they have in it
 ```
-Calculate you cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
+Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
 
 ## Car Fires
-```{r}
+```{r, fig.width=4.25, fig.height=2.5}
 fig_car_fire <- readRDS( file = "fig_car_fire.rds")
 fig_car_fire
 ```
 
-
-## Well to Wheel CO2 Emission from the DoE
-<iframe src="https://widgets.nrel.gov/afdc/electricity-sources-and-emissions/#/?afdc=true&show_state=ca" id="afdc-eset" frameborder="0" scrolling="no" width="100%" height="auto"></iframe><script type="text/javascript">window.addEventListener('message',(event)=>{if(event&&event.data&&event.data.type==='resize-embed-afdc-eset'){document.getElementById("afdc-eset").height=event.data.height;}});</script>
 # California County Level Breakdown
 
 ## 2022 ZEV sales by County
@@ -171,64 +164,9 @@ zev_plot <- zev_sales_county %>%
 
 zev_plot
 ```
-### Where Does your County Stack up?
+## Well to Wheel CO2 Emission from the DoE
+<iframe src="https://widgets.nrel.gov/afdc/electricity-sources-and-emissions/#/?afdc=true&show_state=ca" id="afdc-eset" frameborder="0" scrolling="no" width="100%" height="auto"></iframe><script type="text/javascript">window.addEventListener('message',(event)=>{if(event&&event.data&&event.data.type==='resize-embed-afdc-eset'){document.getElementById("afdc-eset").height=event.data.height;}});</script>
 
-```{r, echo=FALSE}
-zev_sales_one_value <- zev_sales_county %>% 
-  pivot_wider(names_from = c(fuel_type, make, model), values_from = number_of_vehicles) %>% 
-  filter(data_year == 2022) %>%
-  mutate(Total_Sales = rowSums(select(., -c(data_year, county)), na.rm = TRUE))
-
-####
-
-url <- 'https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json'
-counties <- rjson::fromJSON(file=url)
-
-### add fips to data
-
-urlmap <- "https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_and_county_fips_master.csv"
-
-county_fips_map <- read.csv(urlmap, colClasses=c(fips="character")) %>%
-  filter(state == "CA") %>% 
-  rename(county = name) %>% 
-  mutate(county = ifelse(str_detect(county, " County"), str_replace(county, " County", ""), county))
-
-join_county_fips <- left_join(zev_sales_one_value, county_fips_map, by= "county") %>% 
-  drop_na(fips) %>% #out of state
-  mutate_at(vars(Total_Sales), as.numeric) %>% 
-  #this was really annoying 
-  mutate(fips = stringr::str_pad(fips, width = 5, pad = "0")) %>% 
-  mutate_at(vars(fips), as.character)%>% 
-  mutate_all(~ifelse(is.na(.), 0, .))
-
-
-### need to check matching--------------------------
-g <- list(
-  fitbounds = "locations",
-  visible = FALSE
-)
-fig <- plot_ly()
-fig <- fig %>% add_trace(
-  type="choropleth",
-  geojson=counties,
-  locations=join_county_fips$fips,
-  z=join_county_fips$Total_Sales,
-  colorscale="Blues",
-  marker=list(line=list(
-    width=0)
-  )
-)
-fig <- fig %>% colorbar(title = "Total EV an PHEV Sales")
-fig <- fig %>% layout(
-  title = "Total EV an PHEV Sales by County"
-)
-
-fig <- fig %>% layout(
-  geo = g
-)
-
-fig
-```
 ## Data Description and Citation
 
 The data used in this analysis includes the following:

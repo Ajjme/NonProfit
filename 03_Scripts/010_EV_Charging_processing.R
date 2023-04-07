@@ -14,6 +14,35 @@ Cities_list <- list("San Ramon", "Danville", "Antioch", "Brentwood","Clayton",
                     "Concord", "El Cerrito", "Hercules", "Lafayette", "Martinez",
                     'Moraga', "Oakley", "Orinda", "Pinole", "Pittsburg", "Pleasant Hill",
                     "Richmond", "San Pablo", "San Ramon", "Walnut Creek" )
+census_designated_zones <-
+  c(
+    "Alamo",
+    "Alhambra Valley",
+    "Bay Point",
+    "Bayview-Montalvin",
+    "Bethel Island",
+    "Blackhawk-Camino Tassajara",
+    "Byron",
+    "Camino Tassajara",
+    "Castle Hill",
+    "Clyde",
+    "Crockett",
+    "Diablo",
+    "Discovery Bay",
+    "East Richmond Heights",
+    "El Sobrante",
+    "Knightsen",
+    "North Richmond",
+    "Pacheco",
+    "Port Costa",
+    "Reliez Valley",
+    "Rodeo",
+    "Rollingwood",
+    "Saranap",
+    "Shell Ridge",
+    "Tara Hills",
+    "Vine Hill"
+  )
 
 ### Main df--------------------------
 #creating different station type dfs
@@ -49,7 +78,9 @@ EV_stations_total_ccc <- EV_stations_total %>%
       City == "Pleasant Hill" |
       City == "Richmond" |
       City == "San Pablo" | City == "San Ramon" |
-      City == "Walnut Creek"
+      City == "Walnut Creek" |
+      City == "Byron" |
+      City == "El Sobrante" 
   ) 
 
 EV_stations_ccc <- EV_stations %>%
@@ -74,6 +105,12 @@ EV_stations_ccc <- EV_stations %>%
       City == "San Pablo" | City == "San Ramon" |
       City == "Walnut Creek"
   ) 
+
+### CCC -------------------------
+EV_stations_total_uni_ccc <- EV_stations_total %>%
+  filter(City %in% census_designated_zones)
+
+# 5 for UNI_CCC
 #QC
 # str(EV_stations)
 # sapply(EV_stations, class) 

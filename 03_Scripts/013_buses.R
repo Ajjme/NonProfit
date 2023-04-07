@@ -2,98 +2,25 @@
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #may have to change downloaded name
-buses <- read_xlsx("./02_inputs/School_Bus_and_School_Bus_Charger_Last_updated_01-30-2023.xlsx", sheet= "School Bus and Charger") %>% 
-  clean_names()
+buses_ccc <- read_xlsx("./02_inputs/School_Bus_and_School_Bus_Charger_Last_updated_01-30-2023.xlsx", sheet= "School Bus and Charger") %>% 
+  clean_names() %>% 
+  filter(county == "Contra Costa")
+### adding missing cities -----------
+cities <- c("Antioch", "Brentwood", "Clayton", "Concord", "Danville", "El Cerrito", "Hercules", "Lafayette", "Martinez", "Moraga", "Oakley", "Orinda", "Pinole", "Pittsburg", "Pleasant Hill", "Richmond", "San Pablo", "San Ramon", "Walnut Creek", "Uni. CCC")
 
-url <- 'https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json'
-counties <- rjson::fromJSON(file=url)
+# Create a data frame with the cities, funding amount, and number of buses
+df <- data.frame(city = cities, funding_amount = 0, number_of_buses = 0)
 
-### add fips to data
-urlmap <- "https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_and_county_fips_master.csv"
-county_fips_map <- read.csv(urlmap, colClasses=c(fips="character")) %>%
-  filter(state == "CA") %>% 
-  rename(county = name) %>% 
-  mutate(county = ifelse(str_detect(county, " County"), str_replace(county, " County", ""), county))
+buses_ccc <- bind_rows(buses_ccc, df)
+saveRDS(buses_ccc, file = "./06_Reports_Rmd/buses_ccc.rds")
+### Plot one layer-----------------
+plotly_obj_buses <- ggplot(buses_ccc, aes(x = city, y = number_of_buses, fill = infrastructure_funding_amount)) +
+  geom_col(position = "dodge", color = "black") +
+  labs(title = "Electric Buses from CEC School Bus Replacement Program ", y = "Number of Buses", fill = "Funding Amount") +
+  theme(axis.title.x = element_text(hjust = 1),
+        axis.title.y = element_text(hjust = 1),
+        panel.grid.major.y = element_line(color = "gray"),
+        panel.background = element_rect(fill = "white"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
-join_county_fips_buses <- left_join(buses, county_fips_map, by= "county") %>% 
-  mutate(fips = case_when(is.na(fips) ~ "6071",
-                          TRUE ~ fips)) %>% 
-  mutate(fips = stringr::str_pad(fips, width = 5, pad = "0")) %>% 
-  mutate_at(vars(fips), as.character)
-
-
-
-
-g <- list(
-  scope = 'california',
-  projection = list(type = 'albers usa'),
-  showlakes = TRUE,
-  lakecolor = toRGB('white')
-)
-fig <- plot_ly()
-fig <- fig %>% add_trace(
-  type="choropleth",
-  geojson=counties,
-  locations=join_county_fips_buses$fips,
-  z=join_county_fips_buses$total_buses_awarded,
-  colorscale="Blues",
-  marker=list(line=list(
-    width=0)
-  )
-)
-fig <- fig %>% colorbar(title = "Total Buses Awarded")
-fig <- fig %>% layout(
-  title = "Total Buses Awarded by County"
-)
-
-fig <- fig %>% layout(
-  geo = g
-)
-
-fig
-
-#####
-
-ccc_buses <- buses %>% 
-  filter(county =="Contra Costa")
-
-g <- list(
-  scope = 'california',
-  projection = list(type = 'albers usa', center = list(lon = -119, lat = 37.5)),
-  showlakes = TRUE,
-  lakecolor = toRGB('white')
-)
-
-fig <- plot_ly()
-fig <- fig %>% add_trace(
-  type="choropleth",
-  geojson=counties,
-  locations=join_county_fips_buses$fips,
-  z=join_county_fips_buses$total_buses_awarded,
-  colorscale="Blues",
-  marker=list(line=list(
-    width=0)
-  )
-)
-fig <- fig %>% colorbar(title = "Total Buses Awarded")
-fig <- fig %>% layout(
-  title = "Total Buses Awarded by County"
-)
-
-fig <- fig %>% layout(
-  geo = g
-)
-
-fig
-
-
-
-# California Energy Commission School Bus Replacement Program to replace California's
-# oldest diesel buses with all-new battery electric buses and install supporting charging 
-# infrastructure. This dashboard will be updated quarterly to display the progress in delivering
-# CEC awarded electric school buses and installing charging infrastructure throughout California.
-
-### need to look for this data-----------------
-
-# The California Air Resources Board (CARB) also funds electric school buses and supports the transition
-# to a zero-emission school bus fleet.
+saveRDS(plotly_obj_buses, file = "./06_Reports_Rmd/plotly_obj_buses.rds")
