@@ -38,6 +38,7 @@ map_of_EV_small_ccc <-leaflet(data = EV_stations_ccc) %>% addTiles() %>%
 
 
 saveWidget(map_of_EV_small_ccc, file="./06_Reports_Rmd/map_of_EV_small_full_ccc.html")
+saveRDS(map_of_EV_small_ccc, file = "./06_Reports_Rmd/map_of_EV_small_ccc.rds")
 
 ####
 ###big file ####
