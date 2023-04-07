@@ -140,7 +140,7 @@ map_of_EV_small_ccc
 Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
 
 ## Car Fires
-```{r, fig.width=4.25, fig.height=2.5}
+```{r, , echo=FALSE, fig.width=4.25, fig.height=2.5}
 fig_car_fire <- readRDS( file = "fig_car_fire.rds")
 fig_car_fire
 ```
