@@ -17,7 +17,7 @@
 library(tidyverse)
 library(ggplot2)
 library(plotly)
-library(rjson)
+
 library(dplyr)
 library(htmlwidgets)
 library(jsonlite)
