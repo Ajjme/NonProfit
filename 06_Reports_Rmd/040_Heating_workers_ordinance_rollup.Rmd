@@ -1,0 +1,72 @@
+---
+title: "Electrification"
+author: "Andrew"
+date: "2023-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Preparedness Electrification
+
+```{r cars}
+## stacked bar graph of rankings 
+```
+### Importance of Electrification
+Home electrification, which involves replacing fossil fuel-based energy sources with electricity in residential buildings, has several benefits, including:
+
+Reduced greenhouse gas emissions: Home electrification can help reduce greenhouse gas emissions by decreasing the use of fossil fuels for heating, cooling, and other energy needs. This can help mitigate the effects of climate change and improve air quality.
+
+Lower energy costs: Electrifying homes can reduce energy costs for homeowners over time, particularly if they use renewable energy sources like solar or wind power. Electrification can also help reduce the overall energy demand on the grid, which can lead to lower electricity prices for everyone.
+
+Improved health: Electrification can help improve indoor air quality by eliminating the need for fossil fuel-based heating systems that can release harmful pollutants into the air. This can help reduce the risk of respiratory and other health issues associated with poor indoor air quality.
+
+Increased energy independence: Electrifying homes can increase energy independence by reducing reliance on non-renewable energy sources and reducing the overall demand on the grid. This can help communities become more self-sufficient and resilient to disruptions in the energy supply.
+
+Job creation: The transition to electrification can create new job opportunities in the renewable energy sector, as well as in other areas such as energy efficiency upgrades and home automation.
+
+## Electrification Ordinance Map
+```{r}
+
+```
+An Electrification Ordinance is a rule that requires certain buildings to use electric systems instead of fossil fuel-based ones when they're being built or renovated. This means that new buildings and renovations may need to include electric infrastructure to power heating, cooling, and other energy needs. 
+
+## Housing Stock preparedness
+
+```{r, echo=FALSE}
+#Stacked results of heating and age 
+```
+
+## Home heating Equipment Stacked graph by city Filter to have all electric and solar standardized
+
+```{r, echo=FALSE}
+#Stacked results of heating and age 
+```
+
+## Home age Box plot
+
+```{r, echo=FALSE}
+
+```
+
+## Housing Size Box plot
+
+```{r, echo=FALSE}
+#Stacked results of heating and age 
+```
+## Electricians 
+Electricians play a crucial role in the energy transition towards a more sustainable and renewable energy system. With the increased demand for electric infrastructure in homes and businesses, electricians must be knowledgeable about new technologies and systems related to renewable energy, energy efficiency, and electrification. This includes knowledge of solar power systems, energy storage, electric vehicles, and smart grid technologies. Proper training of electricians on these new technologies can ensure that they are equipped to install and maintain the systems safely and efficiently, while also helping to accelerate the adoption of renewable energy and the transition to a more sustainable energy system.
+
+## Number of Electrician in Cities we have data for
+
+```{r}
+
+```
+
+## Contra Costa County Electrician Rankings
+```{r}
+## total and standardized bar graph
+```
+## Data Description and Citation

@@ -17,7 +17,7 @@ size_long <- size %>%
 size_long$rooms <- str_replace_all(size_long$rooms,"_", " ")
 size_long$rooms <- str_to_title(size_long$rooms)
 
-# Create the interactive plot
+# make into a box plot
 
 ggplotly(
   ggplot(size_long, aes(x = city, y = num_homes, fill = rooms)) +

@@ -18,6 +18,9 @@ installer_counts <- installer_name_system %>%
   top_n(5, n)  # Keep only the top five installers based on number of installations
 
 # Create an interactive bar chart of installer counts by service city
+
+#Make this into a bubble chart
+#Maybe just do for the whole county
 plot <- plot_ly(installer_counts, x = ~service_city, y = ~n, color = ~installer_name, type = "bar")
 
 # Set plot title and axis labels

@@ -9,6 +9,8 @@ PGE_solar_data <- read_csv("../Drawdown/PGE_Interconnected_Project_Sites_2023-02
 ### maybe even interconnection vs app time
 ### pace financing could be cool too
 
+
+### NEMPV I think is net metering
 simple_PGE_solar_data <- PGE_solar_data %>% 
   select(app_approved_date, service_city, service_zip, service_county, system_size_ac, 
          storage_capacity_k_wh, storage_size_k_w_ac, total_system_cost, electric_vehicle, installer_name, 
@@ -20,6 +22,9 @@ simple_PGE_solar_data <- PGE_solar_data %>%
          service_city = str_to_title(service_city))
 ### need to add a column with number of homes or some other standardizing metric
 #need to clean County city names
+
+### Standardize ---------------------
+
 
 #we need to clean the service city names
 saveRDS(simple_PGE_solar_data, file = "./04_Outputs/rds/simple_PGE_solar_data.rds")

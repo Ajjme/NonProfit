@@ -52,6 +52,8 @@ sector_solar_non_res <- simple_PGE_solar_data %>%
          technology_type == "Solar PV",
          customer_sector != "Residential") 
 
+
+
 ggplot(sector_solar_non_res, aes(x = service_city, fill = customer_sector)) + 
   geom_bar() + 
   labs(title = "Entries by Customer Sector in Each Service City", 
@@ -62,3 +64,5 @@ ggplot(sector_solar_non_res, aes(x = service_city, fill = customer_sector)) +
 
 # Convert the ggplot2 chart to an interactive plotly chart
 ggplotly()
+
+### County Wide Bubble chart-------------

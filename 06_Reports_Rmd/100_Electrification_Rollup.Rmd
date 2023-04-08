@@ -9,16 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 ### City Electrification Rankings
-
+#Click on the bar graph to go to each individual report
 ```{r, echo=FALSE}}
-#Stacked bar graph with the 2 EVs, MCE, Solar, Storage, Home heating, Electricians
-#civic spark?
+#Stacked bar graph with the EVs, Solar/Storage, Home Electrification
+#civic spark? and total city energy consumption
 ```
 
-Click on the legend to see a subset of the scores
-## EV Scores
+Insert Icons for each report
 
-You can also embed plots, for example:
+
+##Map of Cities colored by Ranking
 
 ```{r pressure, echo=FALSE}
 #Map of cities colored by total score in electrification

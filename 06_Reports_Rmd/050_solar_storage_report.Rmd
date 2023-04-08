@@ -1,0 +1,72 @@
+---
+title: "Solar and Storage Report"
+author: "Andrew"
+date: "2023-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Amount of Solar and Storage Stacked bar graph
+
+```{r }
+
+```
+
+## Installed Solar Before and Standardized
+
+```{r , echo=FALSE}
+
+```
+
+## Installed Storage Before and Standardized
+
+```{r , echo=FALSE}
+
+```
+
+## Sector Bubble chart
+```{r , echo=FALSE}
+
+```
+
+## Average amount spent Box plot
+
+```{r , echo=FALSE}
+
+```
+The Database of State Incentives for Renewables and Efficiency (DSIRE) provides information on solar policies and incentives at the state and local levels.
+
+Energy usage data: Energy usage can also affect the level of solar adoption in a city. https://programs.dsireusa.org/system/program/ca
+link to incentives avaiable 
+## 3rd party ownership rates
+
+```{r , echo=FALSE}
+
+```
+
+## Most Popular installed Equipment bubble chart
+
+```{r , echo=FALSE}
+
+```
+
+## Installers by City top 3
+
+```{r , echo=FALSE}
+
+```
+
+
+## Interconnections by City
+
+```{r , echo=FALSE}
+
+```
+
+## Solar EV Stacked bar graph
+```{r , echo=FALSE}
+
+```

@@ -22,7 +22,7 @@ structure_long <- structure %>%
 structure_long$time_built <- str_replace_all(structure_long$time_built,"_", " ")
 structure_long$time_built <- str_to_title(structure_long$time_built)
 
-# Create the interactive plot
+# make into a box plot 
 
 ggplotly(
   ggplot(structure_long, aes(x = city, y = num_homes, fill = time_built)) +
@@ -30,6 +30,21 @@ ggplotly(
     labs(title = "Age of Home by Geographic Area", x = "Geographic Area", y = "Number of Homes") +
     theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
 )
+
+##Need to pull out and rank by average age
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # # Pivot the data to long format
 # structure_long_2 <- pivot_longer(structure, -city, names_to = "year_built", values_to = "count")
