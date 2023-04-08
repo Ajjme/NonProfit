@@ -126,7 +126,9 @@ plotly_obj_buses
 ```
 The California Energy Commission (CEC) has launched the School Bus Replacement Program, which aims to replace California's oldest diesel buses with all-new battery electric buses and install supporting charging infrastructure. 
 In addition to the School Bus Replacement Program, the California Air Resources Board (CARB) provides funding for electric school buses and supports the transition to a zero-emission school bus fleet. Data on those recipients has not been included in this report. If you know how/where to get that information please reach out.
-```{r, echo=FALSE}
+
+## Map of Public EV chargers in Contra Costa County
+```{r, echo=FALSE, fig.width=5, fig.height=5, fig.align="center"}
 map_of_EV_small_ccc <- readRDS( file = "map_of_EV_small_ccc.rds")
 map_of_EV_small_ccc
 ```
@@ -140,7 +142,7 @@ map_of_EV_small_ccc
 Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
 
 ## Car Fires
-```{r, , echo=FALSE, fig.width=4.25, fig.height=2.5}
+```{r, , echo=FALSE, fig.width=4.5, fig.height=2.5}
 fig_car_fire <- readRDS( file = "fig_car_fire.rds")
 fig_car_fire
 ```

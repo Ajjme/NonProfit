@@ -1,0 +1,28 @@
+---
+title: "Rollup Report Contra Costa"
+author: "Andrew"
+date: "2023-04-08"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+### City Electrification Rankings
+
+```{r, echo=FALSE}}
+#Stacked bar graph with the 2 EVs, MCE, Solar, Storage, Home heating, Electricians
+#civic spark?
+```
+
+Click on the legend to see a subset of the scores
+## EV Scores
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+#Map of cities colored by total score in electrification
+```
+Click each city to go to each city's dashboard
+
+
