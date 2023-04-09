@@ -11,9 +11,11 @@
 # install.packages("leaflet")
 #install.packages("janitor")
 #install.packages("xlsx")
-
-
+#install.packages("rmdformats")
+#library(rmdformats)
 #Load Packages
+# install.packages(remotes)  # if necessary
+# remotes::install_github("juba/rmdformats")
 library(tidyverse)
 library(ggplot2)
 library(plotly)
@@ -25,7 +27,7 @@ library(leaflet)
 library(janitor)
 library(ggthemes)
 library(readxl)
-library(xlsx)
+#library(xlsx)
 library(lubridate)
 #Colors
 
@@ -56,6 +58,7 @@ clean_city_names <- function(x){
                str_detect(city, "ramo") ~ "San Ramon",
                str_detect(city, "waln") ~ "Walnut Creek",
                str_detect(city, "uni") ~ "Uni. CCC",
+               str_detect(city, "contra") ~ "Uni. CCC",
                TRUE ~ city ))
 }
 
@@ -83,6 +86,7 @@ clean_city_names_uni_ccc <- function(x){
                str_detect(city, "ramo") ~ "San Ramon",
                str_detect(city, "waln") ~ "Walnut Creek",
                str_detect(city, "uni") ~ "Uni. CCC",
+               str_detect(city, "contra") ~ "Uni. CCC",
                TRUE ~ "Uni. CCC" ))
 }
 

@@ -1,16 +1,13 @@
 ---
-title: "EV Report"
+title: ""
 author: "Andrew"
-date: "2023-04-01"
-output:
-  html_document:
-    css: style.css
+date: "2023-04-08"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 <img src="image.jpeg" class="logo">
 
 ```{r, include=FALSE}
@@ -28,23 +25,18 @@ library(plotly)
 library(rjson)
 ```
 
+### Electric Vehicle Report
 
-```{r,include=FALSE}
-#not sure why but I had to add another dot to the path
-library(readxl)
-zev_sales_county <- read_excel("../02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
-  clean_names()
-```
+#Electric Vehicles (EVs) are revolutionizing the transportation industry by offering an environmentally-friendly alternative to traditional gasoline-powered vehicles. As EVs become more mainstream, understanding the trends and challenges of EV adoption and charging infrastructure is crucial for policymakers, researchers, and EV enthusiasts alike. In this report, we present a comprehensive analysis of new EV sales in California by city and county(with a particular focus on Contra Costa County), featuring interactive graphs that show new EV sales data standardized by the number of cars in those respective cities and counties. We also provide detailed information on EV chargers in each city, including a map of public charger locations, and highlight the federal electric bus program, which is driving the transition to zero-emission buses. All of the data used in this report is sourced from publicly available datasets, ensuring transparency and accountability. Whether you are a policy maker looking to advance sustainable transportation policies, a researcher seeking to understand the latest trends in EV adoption, or an EV enthusiast wanting to stay informed about charging infrastructure, this report is an essential read. Join us on this journey as we explore the latest developments in the EV landscape and the opportunities and challenges that lie ahead.
 
-Electric Vehicles (EVs) are revolutionizing the transportation industry by offering an environmentally-friendly alternative to traditional gasoline-powered vehicles. As EVs become more mainstream, understanding the trends and challenges of EV adoption and charging infrastructure is crucial for policymakers, researchers, and EV enthusiasts alike. In this report, we present a comprehensive analysis of new EV sales in California by city and county(with a particular focus on Contra Costa County), featuring interactive graphs that show new EV sales data standardized by the number of cars in those respective cities and counties. We also provide detailed information on EV chargers in each city, including a map of public charger locations, and highlight the federal electric bus program, which is driving the transition to zero-emission buses. All of the data used in this report is sourced from publicly available datasets, ensuring transparency and accountability. Whether you are a policy maker looking to advance sustainable transportation policies, a researcher seeking to understand the latest trends in EV adoption, or an EV enthusiast wanting to stay informed about charging infrastructure, this report is an essential read. Join us on this journey as we explore the latest developments in the EV landscape and the opportunities and challenges that lie ahead.
-
-In addition to new EV sales and charging infrastructure data, this report also includes graphs on key factors related to the EV landscape. This includes the average cost of ownership, battery material sourcing, car fires, and well-to-wheel emissions. By providing a comprehensive analysis of these factors, the report offers a holistic view of the EV landscape in California and empowers readers to make informed decisions about the future of sustainable transportation.
+#In addition to new EV sales and charging infrastructure data, this report also includes graphs on key factors related to the EV landscape. This includes the average cost of ownership, battery material sourcing, car fires, and well-to-wheel emissions. By providing a comprehensive analysis of these factors, the report offers a holistic view of the EV landscape in California and empowers readers to make informed decisions about the future of sustainable transportation.
 
 ## Contra Costa County City Electric Transportation Rankings
-```{r, echo=FALSE}
+```{r, echo=FALSE, fig.align = 'center'}
 plotly_obj_scores_ev <- readRDS(file = "plotly_obj_scores_ev.rds")
 plotly_obj_scores_ev
 ```
+Rankings are the culmination of three factors that are further broken out below. The first is EV sales in each city standardized by the number of vehicles registered in each city. The second is number of Public EV charging stations in each city also Standardized by number of vehicles registered in each city. Bonus points were awarded to Brentwood for participating in the California Energy Commissions EV Bus program.
 
 ## ZEV sales for each city Standardized by number of cars registered in the city
 ```{r, echo=FALSE}
@@ -117,8 +109,9 @@ plot_ly(EV_stations_standardized, x = ~city, y = ~chargers_per_total_vehicle_sca
 
 ```
 
-This graph ranks the cities of Contra Costa County on the number of Charging stations per car in their city. Data collected from the Alternate fuel database.
+This graph ranks the cities of Contra Costa County on the number of Charging stations per car in their city. Data collected from the Alternate fuel database. Note only public charging stations were used in this analysis.
 
+## CEC School Bus Replacement Program
 ```{r, echo=FALSE}
 plotly_obj_buses <- readRDS(file = "plotly_obj_buses.rds")
 #brentwood EV Bus program
@@ -128,28 +121,43 @@ The California Energy Commission (CEC) has launched the School Bus Replacement P
 In addition to the School Bus Replacement Program, the California Air Resources Board (CARB) provides funding for electric school buses and supports the transition to a zero-emission school bus fleet. Data on those recipients has not been included in this report. If you know how/where to get that information please reach out.
 
 ## Map of Public EV chargers in Contra Costa County
-```{r, echo=FALSE, fig.width=5, fig.height=5, fig.align="center"}
+```{r, echo=FALSE, fig.align = 'right'}
 map_of_EV_small_ccc <- readRDS( file = "map_of_EV_small_ccc.rds")
 map_of_EV_small_ccc
 ```
+This is a map of EV charging stations in Contra Costa County colored by the number of ports at each station. 
 
+Electric vehicle (EV) charging is important because it enables the transition to a cleaner and more sustainable transportation system, reducing the carbon footprint and air pollution caused by traditional vehicles. The availability of a robust and reliable charging infrastructure is crucial to encourage the adoption of EVs and to provide drivers with the confidence to travel longer distances. Additionally, EV charging offers economic benefits by reducing fuel costs and providing new business opportunities in the energy sector.
 # Common Counterpoint in EV Adoption
 
 ## Average Cost of Ownership
 ```{r}
 #going to make a summary graph with the 4 cars that they have in it
 ```
+```{r, echo=FALSE, fig.align='center'}
+#include_graphics("image.jpg")
+```
+
 Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
 
 ## Car Fires
-```{r, , echo=FALSE, fig.width=4.5, fig.height=2.5}
-fig_car_fire <- readRDS( file = "fig_car_fire.rds")
+```{r, , echo=FALSE, fig.align = 'left', fig.width=5, fig.height=2.5}
+fig_car_fire <- readRDS(file = "fig_car_fire.rds")
 fig_car_fire
 ```
+Electric vehicles (EVs) have a lower risk of fires than internal combustion vehicles (ICVs) because they do not have a fuel system that can ignite. However, when an EV does catch fire, it can be more difficult to extinguish due to the high-voltage battery and the potential for reignition. ICVs are more likely to catch fire due to fuel leaks or electrical malfunctions, but these fires are typically easier to control and extinguish. 
+
+Ford and GM have both had recent recalls on their electric vehicles due to thermal runaway. However EVs remain far less likely to catch fire then their Internal Combustion counter parts.
+The data shown here is from the Bureau of Transportation crash report(2017).
 
 # California County Level Breakdown
 
 ## 2022 ZEV sales by County
+```{r,include=FALSE}
+library(readxl)
+zev_sales_county <- read_excel("../02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
+  clean_names()
+```
 ```{r, echo=FALSE}
 zev_plot <- zev_sales_county %>%
   group_by(county) %>%
@@ -166,8 +174,7 @@ zev_plot <- zev_sales_county %>%
 
 zev_plot
 ```
-## Well to Wheel CO2 Emission from the DoE
-<iframe src="https://widgets.nrel.gov/afdc/electricity-sources-and-emissions/#/?afdc=true&show_state=ca" id="afdc-eset" frameborder="0" scrolling="no" width="100%" height="auto"></iframe><script type="text/javascript">window.addEventListener('message',(event)=>{if(event&&event.data&&event.data.type==='resize-embed-afdc-eset'){document.getElementById("afdc-eset").height=event.data.height;}});</script>
+California is a leader in Electric vehicle sales. There are may rebates and incentive for purchasing and EV. USe this calculator to see what you are currently elegable for: https://ev.pge.com/incentives/
 
 ## Data Description and Citation
 
@@ -187,4 +194,9 @@ When using this data, please cite the following sources:
 
 - United States Census Bureau. (2022). American Community Survey 2022 [Data file]. Retrieved from https://www.census.gov/programs-surveys/acs/data.html
 If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at Ajohns2050@gmail.com.
+
+
+## Additional Resources
+## Well to Wheel CO2 Emission from the DoE
+<iframe src="https://widgets.nrel.gov/afdc/electricity-sources-and-emissions/#/?afdc=true&show_state=ca" id="afdc-eset" frameborder="0" scrolling="no" width="100%" height="auto"></iframe><script type="text/javascript">window.addEventListener('message',(event)=>{if(event&&event.data&&event.data.type==='resize-embed-afdc-eset'){document.getElementById("afdc-eset").height=event.data.height;}});</script>
 

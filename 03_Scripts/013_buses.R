@@ -14,13 +14,16 @@ df <- data.frame(city = cities, funding_amount = 0, number_of_buses = 0)
 buses_ccc <- bind_rows(buses_ccc, df)
 saveRDS(buses_ccc, file = "./06_Reports_Rmd/buses_ccc.rds")
 ### Plot one layer-----------------
-plotly_obj_buses <- ggplot(buses_ccc, aes(x = city, y = number_of_buses, fill = infrastructure_funding_amount)) +
+plotly_obj_buses <- ggplot(buses_ccc, aes(x = city, y = number_of_buses, fill = infrastructure_funding_amount, text = paste("Funding Amount: ", infrastructure_funding_amount, "<br>Number of Buses: ", number_of_buses))) +
   geom_col(position = "dodge", color = "black") +
-  labs(title = "Electric Buses from CEC School Bus Replacement Program ", y = "Number of Buses", fill = "Funding Amount") +
+  labs(title = "Electric Buses from CEC School Bus Replacement Program ", y = "Number of Buses", x = "City", fill = "Funding Amount") +
   theme(axis.title.x = element_text(hjust = 1),
         axis.title.y = element_text(hjust = 1),
         panel.grid.major.y = element_line(color = "gray"),
         panel.background = element_rect(fill = "white"),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+        axis.text.x = element_text(angle = 45, hjust = 0.5))+
+  guides(fill = "none")
 
+plotly_obj_buses <- ggplotly(plotly_obj_buses, tooltip = "text", hoverinfo = "text")
+plotly_obj_buses
 saveRDS(plotly_obj_buses, file = "./06_Reports_Rmd/plotly_obj_buses.rds")

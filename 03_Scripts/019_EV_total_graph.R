@@ -23,14 +23,15 @@
     add_trace(y = ~bus_scaled, name = "Electric of Buses, Bonus", 
               marker = list(line = list(color = "black", width = 1))) %>% 
     layout(title = "EV Scores by City in Contra Costa County",
-           xaxis = list(title = "City"),
+           xaxis = list(title = "City", tickangle = 45),
            yaxis = list(title = "Score"),
-           barmode = "stack")
+           barmode = "stack",
+           legend = list(x = 0.5, y = -0.2, orientation = "h", traceorder = "normal", font = list(size = 12),
+                         xanchor = "center", yanchor = "top", itemwidth = 10, itemsizing = "constant"))
   
   # Display interactive graph
   plotly_obj_scores_ev
   
-  # Display interactive graph
-  plotly_obj_scores_ev
   
   saveRDS(plotly_obj_scores_ev, file = "./06_Reports_Rmd/plotly_obj_scores_ev.rds")
+  
