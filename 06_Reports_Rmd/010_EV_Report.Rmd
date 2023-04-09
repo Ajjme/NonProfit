@@ -160,25 +160,10 @@ The data shown here is from the Bureau of Transportation crash report(2017).
 # California County Level Breakdown
 
 ## 2022 ZEV sales by County
-```{r,include=FALSE}
-library(readxl)
-zev_sales_county <- read_excel("../02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
-  clean_names()
-```
-```{r, echo=FALSE}
-zev_plot <- zev_sales_county %>%
-  group_by(county) %>%
-  summarise(total_sales = sum(number_of_vehicles)) %>%
-  plot_ly(x = ~county, y = ~total_sales, type = "bar",
-          marker = list(color = "#636EFA")) %>%
-  layout(xaxis = list(title = "County", showgrid = FALSE),
-         yaxis = list(title = "Total Number of Vehicles", showgrid = FALSE),
-         title = "Total Zero-Emission Vehicle Sales by County",
-         margin = list(l = 100, r = 100, t = 100, b = 100),
-         plot_bgcolor = "#F4F4F4",
-         paper_bgcolor = "#F4F4F4",
-         font = list(family = "Helvetica Neue"))
 
+```{r, echo=FALSE}
+
+zev_plot <- readRDS( file = "zev_plot.rds")
 zev_plot
 ```
 California is a leader in Electric vehicle sales. There are may rebates and incentive for purchasing and EV. Use this calculator to see what you are currently eligible for: https://ev.pge.com/incentives/
@@ -207,6 +192,4 @@ If you have any questions or comments about this report or the data sources used
 ## Well to Wheel CO2 Emission from the DoE
 <iframe src="https://widgets.nrel.gov/afdc/electricity-sources-and-emissions/#/?afdc=true&show_state=ca" id="afdc-eset" frameborder="0" scrolling="no" width="100%" height="auto"></iframe><script type="text/javascript">window.addEventListener('message',(event)=>{if(event&&event.data&&event.data.type==='resize-embed-afdc-eset'){document.getElementById("afdc-eset").height=event.data.height;}});</script>
 # Our Sponsors
-<img src="MCE.png" class="logo">
-<img src="MDRR_logo.png" class="logo">
-<img src="republic_services_logo.png" class="logo">
+<img src="sponsors.png" class="logo">
