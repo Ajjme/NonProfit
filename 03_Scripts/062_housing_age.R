@@ -5,12 +5,6 @@
 
 
 
-
-structure_margin_of_error <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
-  select(city, contains("structure"),  
-         -contains("annotation"), -contains("percent"), -contains("estimate")) %>% 
-  rename_with(~paste(str_extract(., "^\\w+"), str_extract(., "(?<=units_)\\w+")), contains("units_"))
-
 structure <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
   select(city, contains("structure"),  
          -contains("annotation"), -contains("percent"), -contains("margin"), -estimate_year_structure_built_total_housing_units) %>% 
@@ -56,3 +50,9 @@ ggplotly(
 #   theme(plot.title = element_text(hjust = 0.5))
 # 
 # ggplotly(plot)
+
+# 
+# structure_margin_of_error <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
+#   select(city, contains("structure"),  
+#          -contains("annotation"), -contains("percent"), -contains("estimate")) %>% 
+#   rename_with(~paste(str_extract(., "^\\w+"), str_extract(., "(?<=units_)\\w+")), contains("units_"))

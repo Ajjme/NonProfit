@@ -15,7 +15,7 @@ buses_ccc <- bind_rows(buses_ccc, df)
 saveRDS(buses_ccc, file = "./06_Reports_Rmd/buses_ccc.rds")
 ### Plot one layer-----------------
 plotly_obj_buses <- ggplot(buses_ccc, aes(x = city, y = number_of_buses, fill = infrastructure_funding_amount, text = paste("Funding Amount: ", infrastructure_funding_amount, "<br>Number of Buses: ", number_of_buses))) +
-  geom_col(position = "dodge", color = "black") +
+  geom_col( color = "black") +
   labs(title = "Electric Buses from CEC School Bus Replacement Program ", y = "Number of Buses", x = "City", fill = "Funding Amount") +
   theme(axis.title.x = element_text(hjust = 1),
         axis.title.y = element_text(hjust = 1),

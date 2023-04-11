@@ -3,34 +3,58 @@ simple_PGE_solar_data <- readRDS(file = "./04_Outputs/rds/simple_PGE_solar_data.
 
 ### 3rd party ----------------------
 three_rd_party <- simple_PGE_solar_data %>% 
-  select(app_approved_date, service_city, service_zip, service_county,
-         third_party_owned, third_party_name, total_system_cost, contains_2022) %>% 
-  filter(service_county == "CONTRA COSTA",
-         third_party_owned == "Yes") %>% 
-  filter(contains_2022 == TRUE) 
+  select(app_approved_date, city, service_zip, service_county,
+         third_party_owned, third_party_name, total_system_cost) %>% 
+  filter(third_party_owned == "Yes")
   
 
 # Count the total system cost by third party name and service city
 third_party_costs <- three_rd_party %>%
-  group_by(service_city, third_party_name) %>%
+  group_by(city, third_party_name) %>%
   summarize(total_cost = sum(total_system_cost)) %>%
   ungroup()
-
+### Third party cleaning function ----------
+third_party_costs_clean <- third_party_costs %>% 
+  mutate(third_party_name = str_to_lower(third_party_name)) %>% 
+  mutate(third_party_name =
+         case_when(
+           str_detect(third_party_name, "sunr") ~ "SunRun Inc",
+           str_detect(third_party_name, "sun r") ~ "SunRun Inc",
+           str_detect(third_party_name, "vivin") ~ "Vivint Solar Developer",
+           str_detect(third_party_name, "tesla") ~ "Tesla Energy Operations",
+           str_detect(third_party_name, "solar star") ~ "Solar Star Co",
+           str_detect(third_party_name, "sunp") ~ "SunPower",
+           str_detect(third_party_name, "sunn") ~ "Sunnova",
+           str_detect(third_party_name, "kuu") ~ "Kuubix Global",
+           str_detect(third_party_name, "ever") ~ "Everbright",
+           str_detect(third_party_name, "powur") ~ "Puwur PBC",
+         TRUE ~ third_party_name))
 # Keep only the top five third party names based on total system cost in each service city
-top_third_parties <- third_party_costs %>%
-  group_by(service_city) %>%
-  top_n(5, total_cost) %>% 
-  filter(total_cost != 0)
+top_third_parties <- third_party_costs_clean %>%
+  filter(total_cost != 0) %>% 
+  group_by(city, third_party_name) %>%
+  summarise(third_party_own_total = sum(total_cost)) %>% # I want to change to counts
+  top_n(3, third_party_own_total) 
 
 # Create an interactive bar chart of total system cost by third party name and service city
-plot <- plot_ly(top_third_parties, x = ~service_city, y = ~total_cost, color = ~third_party_name, type = "bar")
+plot_third <-
+  plot_ly(
+    top_third_parties,
+    x = ~ city,
+    y = ~ third_party_own_total,
+    color = ~ third_party_name,
+    type = "bar"
+  )
 
 # Set plot title and axis labels
-plot <- plot %>% layout(title = "Total System Cost by Third Party and Service City 2022",
+plot_third <- plot_third %>% layout(title = "Total System Cost by Third Party and Service City 2022",
                         xaxis = list(title = "Third Party Name"),
                         yaxis = list(title = "Total System Cost ($)"))
 
 # Add dropdown menu to filter by service city
 
 # Show plot
-plot
+plot_third
+
+
+saveRDS(plot_third, file = "./06_Reports_Rmd/plot_third.rds")

@@ -3,7 +3,7 @@ source("./03_Scripts/000_init.R")
 ### Inputs-------------------
 names_and_code <- readRDS(file = "./04_Outputs/rds/acs_general_pct_ca_city.rds") %>% 
   select(place, place_FIPS, placename, county, contains("vehicle"), contains("public"), "carpool"  ,
-         "drove_alone", "walked_to_work") %>% 
+         "drove_alone", "walked_to_work", total_pop) %>% 
   rename(city = placename )
 
 ### CCC filter and cleaning--------------------

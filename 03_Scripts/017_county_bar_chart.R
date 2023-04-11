@@ -5,6 +5,8 @@ zev_sales_county <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-18-202
   clean_names()
 
 ### still need to standardize ----------
+### do by population so we can copy it over to the electricians 
+
 
 ### County bar graph------------- Totals --------------
 zev_sales_county <- zev_sales_county %>%

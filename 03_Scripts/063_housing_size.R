@@ -1,11 +1,5 @@
 ## housing size
 
-
-size_margin_of_error <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
-  select(city, contains("rooms"),  
-         -contains("annotation"), -contains("percent"), -contains("estimate")) %>% 
-  rename_with(~paste(str_extract(., "^\\w+"), str_extract(., "(?<=units_)\\w+")), contains("units_"))
-
 size <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
   select(city, contains("rooms"), -contains("bed"), -contains("med"),
          -contains("annotation"), -contains("percent"), -contains("margin"), -estimate_bedrooms_total_housing_units, -estimate_rooms_total_housing_units ) %>% 
@@ -19,6 +13,21 @@ size_long$rooms <- str_to_title(size_long$rooms)
 
 # make into a box plot
 
+# Create a boxplot of total system cost by service city using plotly, removing outliers
+plot_cost <- plot_ly(size_long, x = ~city, y = ~num_homes, type = "box",
+                     boxpoints = "outliers", jitter = 0.3, pointpos = -1.8)
+
+# Set plot title and axis labels
+plot_cost <- plot_cost %>% layout(title = "Typical Homes Size by Service City",
+                                  xaxis = list(title = "City"),
+                                  yaxis = list(title = "Number of Rooms"))
+
+# Show 
+plot_cost
+
+#rooms include kitchen and living rooms
+
+# Bar graph but not useful
 ggplotly(
   ggplot(size_long, aes(x = city, y = num_homes, fill = rooms)) +
     geom_bar(stat = "identity") +

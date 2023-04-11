@@ -1,43 +1,63 @@
 ---
-title: "MCE Report"
-author: "Andrew"
-date: "2023-04-08"
-output: html_document
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+<img src="MCE.png" class="logo">
+# Marin County Energy 
+Introduction(website)
+```{r include=FALSE}
 
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(htmlwidgets)
+library(jsonlite)
+library(leaflet)
+library(janitor)
+library(ggthemes)
+library(plotly)
+library(rjson)
+```
 ## All MCE Cities Ranked by participation
+```{r, echo=FALSE}
 
-```{r }
-summary(cars)
 ```
 
 ## map of MCE cities Deep green or not
-```{r}
+```{r, echo=FALSE}
 ### ask if the sign up is just the government body
 ```
 
 ## CO2 reduced All cities
-```{r}
-
+```{r, echo=FALSE}
+#Scatter plot with bubbles drop in common other things
+#in alt color drop in how many cars or...
 ```
-
-## All Counties Ranked
-
-```{r echo=FALSE}
-plot(pressure)
+This amount to CO2 is equivalent to...
+#Rankings
+## All Counties Ranked Filter to each county to get the cities (add trace)
+```{r, echo=FALSE}
+#All Counties Ranked Filter to each county to get the cities (add trace)
 ```
-
-## Contra Costa cities ranked and mapped
-```{r}
-
-```
+Show Ranking criteria
+#Benefits
 
 ##MCE CO2 reduction over time
-```{r}
-
+```{r, echo=FALSE}
+# line graph with assumed based on year joined and total reduced
 ```
+## Community benefits?
+breaking up the monopoly 
+Data on reliability?
 
+# Data Description and Citation
+
+The data used in this analysis includes the following:

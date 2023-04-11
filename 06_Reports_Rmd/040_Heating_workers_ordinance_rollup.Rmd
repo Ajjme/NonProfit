@@ -32,18 +32,22 @@ Job creation: The transition to electrification can create new job opportunities
 
 ```
 An Electrification Ordinance is a rule that requires certain buildings to use electric systems instead of fossil fuel-based ones when they're being built or renovated. This means that new buildings and renovations may need to include electric infrastructure to power heating, cooling, and other energy needs. 
+Data obtained by contacting local and city officials. If your city has an ordinance and it isn't shown here please reach out.
 
 ## Housing Stock preparedness
 
 ```{r, echo=FALSE}
-#Stacked results of heating and age 
+#Stacked results of percent clean heating fuel used and percent of homes built in the last 20 years?
 ```
 
-## Home heating Equipment Stacked graph by city Filter to have all electric and solar standardized
+
+## Home heating Equipment Stacked graph 
 
 ```{r, echo=FALSE}
-#Stacked results of heating and age 
+plot_heating <- readRDS( file = "plot_heating.rds")
+plot_heating
 ```
+In roll up Electric, Solar energy and No fuel were aggregated to create the percent clean heating fuel used in the roll-up
 
 ## Home age Box plot
 
@@ -58,15 +62,19 @@ An Electrification Ordinance is a rule that requires certain buildings to use el
 ```
 ## Electricians 
 Electricians play a crucial role in the energy transition towards a more sustainable and renewable energy system. With the increased demand for electric infrastructure in homes and businesses, electricians must be knowledgeable about new technologies and systems related to renewable energy, energy efficiency, and electrification. This includes knowledge of solar power systems, energy storage, electric vehicles, and smart grid technologies. Proper training of electricians on these new technologies can ensure that they are equipped to install and maintain the systems safely and efficiently, while also helping to accelerate the adoption of renewable energy and the transition to a more sustainable energy system.
+#Electricians
 
 ## Number of Electrician in Cities we have data for
 
 ```{r}
-
+plot_place_elect <- readRDS(file = "plot_place_elect.rds")
+plot_place_elect
 ```
+## Electricians By County Standardized and not
 
-## Contra Costa County Electrician Rankings
 ```{r}
-## total and standardized bar graph
+
 ```
+ 
+
 ## Data Description and Citation
