@@ -65,9 +65,34 @@ acs_general_pct_ca_city <- left_join(acs_general_pct_named, place_hier_ca,
 saveRDS(acs_general_pct_ca_city, file = "./04_Outputs/rds/acs_general_pct_ca_city.rds")
 
 
+### County---------attempt-----------------
+acs_general_pct_county <- getCensus(name = "acs/acs5", vintage = 2021,
+                             vars = c("B01001_001E", "B01001_001E", "B24114_454E", "B08014_003E", "B08014_004E",
+                                      "B08014_005E","B08014_006E", "B08014_007E","B08014_001E", "B08134_071E", "B08134_061E",
+                                      "B08134_031E", "B08134_021E", "B08132_061E", "B24114_407E", "B24124_407E"), # Selected broadband variables
+                             region = "county:*", # '*' mean all counties
+                             regionin = "state:06") # 06 is california state FIPS code
 
+acs_general_pct_named_county <- acs_general_pct_county %>%
+  mutate_at(c('county'), as.character)%>%
+  rename(total_pop = B01001_001E,
+         heat_cool_ref_installers = B24114_454E,
+         one_vehicle = B08014_003E,
+         two_vehicle = B08014_004E,
+         three_vehicle = B08014_005E,
+         four_vehicle = B08014_006E,
+         five_vehicle = B08014_007E,
+         total_vehicle = B08014_001E,
+         public_trans_bus = B08134_071E,
+         public_trans = B08134_061E,
+         carpool = B08134_031E,
+         drove_alone = B08134_021E,
+         walked_to_work = B08132_061E,
+         electrician = B24114_407E,
+         elect_2 = B24124_407E) 
+acs_general_pct_named_county$county <- paste0("06", acs_general_pct_named_county$county)
 
-
+saveRDS(acs_general_pct_named_county, file = "./04_Outputs/rds/acs_general_pct_named_county.rds")
 
 # ### Archive --------------------
 
@@ -128,28 +153,22 @@ saveRDS(acs_general_pct_ca_city, file = "./04_Outputs/rds/acs_general_pct_ca_cit
 
 # ### Demographic---------------
 # ## Educational Attainment, Age, and Unemployment from the ACS 2021 ##
-# acs_demo <- getCensus(name = "acs/acs5/profile", vintage = 2021,
-#                       vars = c("DP02_0066PE","DP02_0064PE","DP02_0065PE", # Education
-#                                "DP03_0009PE", # Unployment
-#                                "DP05_0007PE","DP05_0008PE", # GenZ
-#                                "DP05_0009PE","DP05_0010PE", # Millennials
-#                                "DP05_0011PE","DP05_0012PE", # GenX
-#                                "DP05_0013PE","DP05_0014PE","DP05_0015PE"), # Boomers
-#                       region = "county:*",
-#                       regionin = "state:48") 
-# 
-# acs_demo <- acs_demo %>% 
-#   mutate(county_FIPS = paste0(state, county)) 
+acs_demo <- getCensus(name = "acs/acs5/profile", vintage = 2021,
+                      vars = c("DP02_0066PE","DP02_0064PE","DP02_0065PE", # Education
+                               "DP03_0009PE", # Unployment
+                               "DP05_0007PE","DP05_0008PE", # GenZ
+                               "DP05_0009PE","DP05_0010PE", # Millennials
+                               "DP05_0011PE","DP05_0012PE", # GenX
+                               "DP05_0013PE","DP05_0014PE","DP05_0015PE"), # Boomers
+                      region = "county:*",
+                      regionin = "state:48")
+
+acs_demo <- acs_demo %>%
+  mutate(county_FIPS = paste0(state, county))
 # ## Inspect the datafr
 # head(acs_demo)
 # 
-# acs_merged <- left_join(acs_demo, acs_broadband_pct, by = "county_FIPS")
-
-
-
-#add vehicles 
-# travel tiem 
-# heating
+acs_merged <- left_join(acs_demo, acs_broadband_pct, by = "county_FIPS")
 
 #%>%
 #   rename(car_washes = B24134_241E,

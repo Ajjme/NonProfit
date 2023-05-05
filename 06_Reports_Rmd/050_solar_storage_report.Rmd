@@ -162,4 +162,4 @@ The data used in this analysis includes the following:
 # Our Sponsors
 <img src="sponsors.png" class="logo">
 ## Contact and Support
-Want as similar report for your Juristiction? Want to support the cause? Contact us!
+Want as similar report for your Jurisdiction? Want to support the cause? Contact us!

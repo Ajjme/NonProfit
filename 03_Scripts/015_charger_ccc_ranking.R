@@ -29,30 +29,10 @@ EV_stations_standardized <- full_join(num_vehicles, EV_stations_total_ccc_clean,
 ### Saving-----------
 saveRDS(EV_stations_standardized, file = "./06_Reports_Rmd/EV_stations_standardized.rds")
 
-### Plot------------------------
-
-### great example of fixing the hover text
-# Create the ggplot object
-ggplot_obj <- ggplot(EV_stations_standardized, aes(x = reorder(city, desc(stations_per_car)), y = stations_per_car, fill = stations_per_car, text = paste("Stations per Car: ", stations_per_car))) +
-  geom_bar(stat = "identity") +
-  xlab("City") +
-  ylab("Total Stations") +
-  my_future_theme()+
-  ggtitle("Total EV Stations by City")  +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
-  scale_fill_gradient(low = "grey", high = "darkgreen")
-# Convert the ggplot object to an interactive plotly object
-plotly_obj <- ggplotly(ggplot_obj, tooltip = "text", hoverinfo = "text")
-
-# Print the interactive plotly object
-print(plotly_obj)
-
 ### Output--------------
-saveWidget(plotly_obj, file = "./06_Reports_Rmd/Rankings_charger_ccc_015.html")
-
-
-fig_multi <- plot_ly(EV_stations_standardized, x = ~city, y = ~chargers_per_total_vehicle_scaled, name = "Stations Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
+plot_ly(EV_stations_standardized, x = ~city, y = ~stations_per_car, name = "Stations per Car", type = "bar", showlegend = FALSE, marker = list(color = "C19A6B", line = list(color = "black", width = 1))) %>%
   add_trace(y = ~total_stations, name = "Total Stations", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_vehicle, name = "Total Vehicles", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -61,11 +41,15 @@ fig_multi <- plot_ly(EV_stations_standardized, x = ~city, y = ~chargers_per_tota
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
-               label = "EV Score"),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
+               label = "Stations per Vehicle"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
                label = "Total Stations"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Vehicles"
           )
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)
@@ -80,6 +64,24 @@ fig_multi <- plot_ly(EV_stations_standardized, x = ~city, y = ~chargers_per_tota
 
 
 ### Archive ----------------------------
+### great example of fixing the hover text
+# Create the ggplot object
+# ggplot_obj <- ggplot(EV_stations_standardized, aes(x = reorder(city, desc(stations_per_car)), y = stations_per_car, fill = stations_per_car, text = paste("Stations per Car: ", stations_per_car))) +
+#   geom_bar(stat = "identity") +
+#   xlab("City") +
+#   ylab("Total Stations") +
+#   my_future_theme()+
+#   ggtitle("Total EV Stations by City")  +
+#   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+#   scale_fill_gradient(low = "grey", high = "darkgreen")
+# # Convert the ggplot object to an interactive plotly object
+# plotly_obj <- ggplotly(ggplot_obj, tooltip = "text", hoverinfo = "text")
+# saveWidget(plotly_obj, file = "./06_Reports_Rmd/Rankings_charger_ccc_015.html")
+# Print the interactive plotly object
+#print(plotly_obj)
+
+
+
 # # Define the ggplot object
 # ggplot_obj <- ggplot(EV_stations_standardized, aes(x = city, y = total_stations, fill = total_stations)) +
 #   geom_bar(stat = "identity") +

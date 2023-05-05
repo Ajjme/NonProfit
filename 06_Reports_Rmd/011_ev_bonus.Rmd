@@ -1,0 +1,24 @@
+---
+title: "bonus"
+author: "Andrew"
+date: "2023-05-03"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# Bonus
+## School Bus Replacement Program
+```{r, echo=FALSE}
+plotly_obj_buses <- readRDS(file = "plotly_obj_buses.rds")
+#brentwood EV Bus program
+plotly_obj_buses
+```
+The California Energy Commission (CEC) has launched the School Bus Replacement Program, which aims to replace California's oldest diesel buses with all-new battery electric buses and install supporting charging infrastructure. 
+In addition to the School Bus Replacement Program, the California Air Resources Board (CARB) provides funding for electric school buses and supports the transition to a zero-emission school bus fleet. Data on those recipients has not been included in this report. If you know how/where to get that information please reach out.
+
+

@@ -49,7 +49,7 @@ fig <- fig %>% add_trace(
     width=0)
   )
 )
-fig <- fig %>% colorbar(title = "Total EV an PHEV Sales")
+fig <- fig %>% colorbar(title = "Total EV and PHEV Sales")
 fig <- fig %>% layout(
   title = "Total EV an PHEV Sales by County"
 )
@@ -59,4 +59,32 @@ fig <- fig %>% layout(
 )
 
 fig
-#####
+
+
+
+##### scaled---------------
+g <- list(
+  fitbounds = "locations",
+  visible = FALSE
+)
+fig_2 <- plot_ly()
+fig_2 <- fig_2 %>% add_trace(
+  type="choropleth",
+  geojson=counties,
+  locations=join_county_fips$fips,
+  z=join_county_fips$Total_Sales,
+  colorscale="Blues",
+  marker=list(line=list(
+    width=0)
+  )
+)
+fig_2 <- fig_2 %>% colorbar(title = "Total EV an PHEV Sales")
+fig_2 <- fig_2 %>% layout(
+  title = "Total EV an PHEV Sales by County"
+)
+
+fig_2 <- fig_2 %>% layout(
+  geo = g
+)
+
+fig_2
