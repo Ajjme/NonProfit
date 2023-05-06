@@ -9,7 +9,9 @@ ccc_mce_df <- read.csv("./02_inputs/Contra_Costa_MCE_Data.csv", skip = 3, header
   clean_names() %>% 
   mutate_at(c('deep_green_a2', 'mt_c_oa_reduced_a1'), as.numeric) %>% 
   rename(co2_reduced = mt_c_oa_reduced_a1,
-         join_deep_green = deep_green_a2)
+         join_deep_green = deep_green_a2) %>% 
+  mutate(city = str_to_lower(community)) %>% 
+  clean_city_names_uni_ccc()
 
 marin_mce_df <- read.csv("./02_inputs/marin_county_mce_data.csv", skip = 3, header = T) %>% 
   clean_names() %>% 
@@ -30,3 +32,12 @@ solano_mce_df <- read.csv("./02_inputs/solano_county_mce_data.csv", skip = 3, he
          join_deep_green = deep_green_a2)
 
 full_mce <- bind_rows(ccc_mce_df, marin_mce_df, napa_mce_df, solano_mce_df) 
+
+### Save---------------
+
+saveRDS(ccc_mce_df, file = "./04_Outputs/rds/ccc_mce_df.rds")
+saveRDS(marin_mce_df, file = "./04_Outputs/rds/marin_mce_df.rds")
+saveRDS( napa_mce_df, file = "./04_Outputs/rds/napa_mce_df.rds")
+saveRDS( solano_mce_df, file = "./04_Outputs/rds/solano_mce_df.rds")
+saveRDS( full_mce, file = "./04_Outputs/rds/full_mce.rds")
+

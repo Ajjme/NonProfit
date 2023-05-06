@@ -16,6 +16,8 @@
     slice(-1) %>% 
     mutate(total = (chargers_per_total_vehicle_scaled + ev_per_new_vehicle_scaled)) %>% 
     arrange(total) #dropped the bus thing as it was a dulp 
+
+saveRDS(  scores_ev, file = "./06_Reports_Rmd/scores_ev.rds")
   ### Stacked bar graph-----------------
   
   plotly_obj_scores_ev <- scores_ev %>% 
