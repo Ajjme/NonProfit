@@ -10,17 +10,20 @@ civic_data <- read_xlsx("./02_inputs/ContraCosta CivicSpark Projects 2022.xlsx")
   mutate(city = str_to_lower(city)) %>% 
   clean_city_names_uni_ccc() %>% 
   mutate(civic_score = final_score) %>% 
-  select(-final_score) %>% 
+  #select(-final_score) %>% 
   distinct(city, .keep_all = TRUE) %>% 
   mutate(civic_score = case_when(str_detect(city, "Uni. CCC") ~ as.numeric("100"),
-                                 TRUE ~ civic_score))
+                                 TRUE ~ civic_score)) %>% 
+  mutate(this_year = case_when(str_detect(civic_spark_fellow_requested_for_22_23, "Yes") ~ as.numeric("1"),
+                                 TRUE ~ as.numeric("0"))) 
+
 
 
 # Scoring 50 points for having prior 
 # 50 points for having this year
 
 saveRDS(civic_data, file = "./04_Outputs/rds/civic_data.rds")
-
+saveRDS(civic_data, file = "./06_Reports_Rmd/civic_data.rds")
 #Bar graph of number of fellows each city has had
 #need to fix the colors
 

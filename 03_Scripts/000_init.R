@@ -1,6 +1,6 @@
 #initialization
 #Install packages
-
+rm(list = ls())
 # install.packages("tidyverse", type = "source")
 # #install.packages("plotly", type = "source")
 # #install.packages("rjson", type = "source")

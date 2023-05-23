@@ -45,7 +45,7 @@ ZEV_sales_city_standardized <- full_join(num_vehicles, ZEV_sales_city, by = "cit
 #totals----------------
 # Create a ggplot object with the ZEV_sales_city_standardized dataframe
 p <- ggplot(ZEV_sales_city_standardized, aes(x = city, y = total_vehicle_per_zev, fill = fuel_type)) + 
-  geom_col(position = "dodge") +
+  geom_col(position = "dodge") + #puts the columns next to each other (stack would stack them)
   labs(title = "Total Vehicle per ZEV by Fuel Type", y = "Total Vehicle per ZEV")
 
 # Convert the ggplot object to a plotly object

@@ -27,10 +27,14 @@ counties <- rjson::fromJSON(file=url)
 
 urlmap <- "https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_and_county_fips_master.csv"
 
+
+
 county_fips_map <- read.csv(urlmap, colClasses=c(fips="character")) %>%
   filter(state == "CA") %>% 
   rename(county = name) %>% 
   mutate(county = ifelse(str_detect(county, " County"), str_replace(county, " County", ""), county))
+
+#saveRDS(county_fips_map,  file = "county_test.rds")
 
 join_county_fips <- left_join(zev_sales_all, county_fips_map, by= "county") %>% 
   drop_na(fips) %>% #out of state
