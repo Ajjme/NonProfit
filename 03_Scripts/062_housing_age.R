@@ -16,14 +16,26 @@ structure_long <- structure %>%
 structure_long$time_built <- str_replace_all(structure_long$time_built,"_", " ")
 structure_long$time_built <- str_to_title(structure_long$time_built)
 
+#sum all the matching groups
+
+structure_long_summarized <- structure_long %>%
+  group_by(city, time_built) %>%
+  summarize(`Number of Homes` = sum(num_homes)) %>% 
+  rename(City = city,
+         `Time` = time_built)
+
+
 # make into a box plot 
 
-ggplotly(
-  ggplot(structure_long, aes(x = city, y = num_homes, fill = time_built)) +
+home_age <- ggplotly(
+  ggplot(structure_long_summarized, aes(x = City, y = `Number of Homes`, fill = `Time`)) +
     geom_bar(stat = "identity") +
     labs(title = "Age of Home by Geographic Area", x = "Geographic Area", y = "Number of Homes") +
-    theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1))
+    theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1), panel.background = element_blank())
 )
+
+saveRDS(home_age, file = "./06_Reports_Rmd/home_age.rds")
+
 
 ##Need to pull out and rank by average age
 

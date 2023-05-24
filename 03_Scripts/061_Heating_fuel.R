@@ -1,9 +1,4 @@
 
-# 
-# heating_fuel_margin_of_error <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
-#   select(city, contains("heating_fuel"),  
-#           -contains("annotation"), -contains("percent"), -contains("estimate")) %>% 
-#   rename_with(~paste(str_extract(., "^\\w+"), str_extract(., "(?<=units_)\\w+")), contains("units_"))
 
 heating_fuel <- readRDS( file = "./04_Outputs/rds/home_characteristics.rds") %>% 
   select(city, contains("heating_fuel"),  
@@ -43,14 +38,17 @@ saveRDS(heating_fuel_percent_two, file = "./04_Outputs/rds/heating_fuel_percent_
 
 
 
-
+### CHART -------------------------------------------
+heating_fuel_long_summarized  <- heating_fuel_long %>%
+  group_by(city, fuel_type) %>%
+  summarize(num_homes = sum(num_homes)) 
 
 # Stacked chart of all fuel types--------------------------
 
 plot_heating <- 
-  ggplot(heating_fuel_long, aes(x = city, y = num_homes, fill = fuel_type, text = paste("Fuel Type: ", fuel_type, "<br>Number of Homes: ", num_homes))) +
+  ggplot(heating_fuel_long_summarized, aes(x = city, y = num_homes, fill = fuel_type, text = paste("Fuel Type: ", fuel_type, "<br>Number of Homes: ", num_homes))) +
     geom_bar(stat = "identity") +
-    labs(title = "Heating Fuel by Geographic Area", x = "Geographic Area", y = "Number of Homes") +
+    labs(title = "Heating Fuel by Geographic Area", x = "City", y = "Number of Homes") +
     theme(axis.title.y = element_text(hjust = 1),
           panel.grid.major.y = element_line(color = "gray"),
           panel.background = element_rect(fill = "white"),

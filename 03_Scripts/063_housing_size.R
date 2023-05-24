@@ -20,10 +20,11 @@ plot_cost <- plot_ly(size_long, x = ~city, y = ~num_homes, type = "box",
 # Set plot title and axis labels
 plot_cost <- plot_cost %>% layout(title = "Typical Homes Size by Service City",
                                   xaxis = list(title = "City"),
-                                  yaxis = list(title = "Number of Rooms"))
+                                  yaxis = list(title = "Square Footage"))
 
 # Show 
 plot_cost
+saveRDS(plot_cost, file = "./06_Reports_Rmd/plot_cost.rds")
 
 #rooms include kitchen and living rooms
 

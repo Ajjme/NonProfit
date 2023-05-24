@@ -39,7 +39,16 @@ home_characteristics_data_clean <- clean_city_names_uni_ccc(home_characteristics
   summarise_all()
 
 
-saveRDS(home_characteristics_data_clean, file = "./04_Outputs/rds/home_characteristics.rds")
+
+ca_zip_simple_map <- readRDS(file = "./04_Outputs/rds/county_zip_code_map.rds") %>%  
+  mutate(zip = as.integer(zip))
+
+
+home_characteristics_county <- left_join( ca_zip_simple_map, home_characteristics_data , by = c("zip" = "geographic_area_name"))
+
+
+
+saveRDS(home_characteristics_county, file = "./04_Outputs/rds/060_home_characteristics_county.rds")
 
 
 
