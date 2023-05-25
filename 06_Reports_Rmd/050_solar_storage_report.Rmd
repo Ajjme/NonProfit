@@ -1,15 +1,17 @@
 ---
+title: "Solar and Storage"
 output:
   html_document:
     toc: true
     toc_depth: 3
     toc_float: true
+    css: "style.css"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-<img src="image.jpeg" class="logo">
+<img src="image.jpeg">
 ```{r, include=FALSE}
 
 library(tidyverse)
@@ -24,22 +26,39 @@ library(ggthemes)
 library(plotly)
 library(rjson)
 ```
-# Solar and Storage Report Introduction
-Solar and storage are important
 
-## Solar and Storage Scoring 
 
-```{r }
+# **Introduction**
 
+Installing solar panels and battery storage systems are important ways to mitigate the climate crisis by reducing emissions and promoting renewable energy integration.
+
+- Solar panels generate clean energy from the sun, reducing reliance on fossil fuels.
+
+- Battery storage systems optimize renewable energy use, balancing supply and demand.
+
+- Decentralized solar power enhances grid resilience and reduces vulnerability to disruptions.
+
+- Battery storage provides grid stability by smoothing out the intermittency of renewable energy sources.
+
+- Solar power enables electrification of transportation and heating sectors, reducing emissions.
+
+- Solar and storage systems have minimal environmental impacts compared to fossil fuel-based sources.
+
+# **Solar and Storage Scoring**
+
+```{r, echo=FALSE }
+plotly_obj_scores_solar <- readRDS( file = "./59a_plotly_obj_scores_solar.rds")
+plotly_obj_scores_solar
 ```
 
-## Installed Solar in 2022 Standardized and Totals
+## Installed Solar in 2022
 
 ```{r , echo=FALSE}
 solar_city_standardized <- readRDS(file = "solar_city_standardized.rds")
 
 fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scaled, name = "Solar Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
   add_trace(y = ~total_size_ac, name = "Total Solar AC", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_pop, name = "Total Population", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -48,11 +67,15 @@ fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scal
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
-               label = "Solar Score"),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
+               label = "Score"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
-               label = "Total Solar kW"
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
+               label = "Total Solar AC Installed"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Population"
           )
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)
@@ -66,13 +89,14 @@ fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scal
 fig_multi
 ```
 
-## Installed Storage Standardized and Totals
+## Installed Storage
 
 ```{r , echo=FALSE}
 storage_city_standardized <- readRDS(file = "storage_city_standardized.rds")
 
 fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_pop_scaled, name = "Storage Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
-  add_trace(y = ~total_capacity_k_wh, name = "Total Storage kWh", type = "bar", visible = FALSE) %>%
+    add_trace(y = ~total_capacity_k_wh, name = "Total Storage kWh", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_pop, name = "Total Population", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -81,11 +105,15 @@ fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_po
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
-               label = "Storage Score"),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
+               label = "Score"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
                label = "Total Storage kWh"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Population"
           )
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)
@@ -96,39 +124,36 @@ fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_po
     margin = list(l = 60, r = 20, t = 40, b = 40),
     font = list(family = "Arial", size = 14)
   )
+
 fig_storage
 ```
-# Install Statistics
+# **Install Statistics**
 
-## Sector Bubble chart
+## Non-Residential Installs
+
 ```{r , echo=FALSE}
-
+non_res_solar_sectors <- readRDS(file = "./058_non_res_solar_sectors.rds")
+non_res_solar_sectors 
 ```
+Residential Installation are by far the most common. This chart breaks down the count of other installation by sector.
 
-## Average amount spent Box plot
+## Cost of Systems
 
 ```{r , echo=FALSE}
-plot_cost <- readRDS( file = "plot_cost.rds")
+plot_cost <- readRDS( file = "plot_cost_solar.rds")
 plot_cost
 ```
-The Database of State Incentives for Renewable and Efficiency (DSIRE) provides information on solar policies and incentives at the state and local levels.
 
-Energy usage data: Energy usage can also affect the level of solar adoption in a city. https://programs.dsireusa.org/system/program/ca
-link to incentives available 
-## 3rd party ownership rates
+## 3rd Party Ownership Rates
 
 ```{r , echo=FALSE}
 plot_third <- readRDS(file = "plot_third.rds")
 plot_third
 ```
 
-## Most Popular installed Equipment bubble chart
+Third-party ownership of solar panels offers an accessible and hassle-free pathway for property owners to adopt solar energy. With this arrangement, a solar provider installs and maintains the solar panel system while the property owner benefits from the generated electricity. By eliminating upfront costs and handling system maintenance, third-party ownership allows property owners to enjoy the advantages of solar energy without the financial burden or complexities associated with ownership. Through lease or power purchase agreements, property owners can access clean energy, lower electricity bills, and long-term price stability while contributing to environmental sustainability.
 
-```{r , echo=FALSE}
-
-```
-
-## Installers by City top 3
+## Top 5 Installers in the County
 
 ```{r , echo=FALSE}
 fig_installer <- readRDS( file = "fig_installer.rds")
@@ -143,23 +168,22 @@ plot_int_con <- readRDS(file = "plot_int_con.rds")
 plot_int_con
 ```
 
-## Solar EV Stacked bar graph
+## EV Solar Combination Rates
 ```{r , echo=FALSE}
 plot_ev_solar <- readRDS(file = "plot_ev_solar.rds")
 plot_ev_solar
 ```
+Pairing an electric vehicle (EV) with solar power delivers a range of benefits, combining clean transportation with renewable energy. By charging an EV with solar-generated electricity, you minimize carbon emissions and improve air quality. The use of solar power reduces or eliminates fuel costs, leading to significant long-term savings. Additionally, the synergy between solar energy and EVs provides energy independence, resilience during power outages, and the opportunity to take advantage of incentives and rebates. This combination showcases environmental responsibility and contributes to a sustainable future, making it an attractive choice for eco-conscious individuals seeking cost-effective and clean transportation solutions.
 
-# Average pay off period?
-##
-```{r}
-# Line graph with new net metering system
-```
-
-# Data Description and Citation
+# **Data Description and Citation**
 
 The data used in this analysis includes the following:
+The Database of State Incentives for Renewable and Efficiency (DSIRE) provides information on solar and storage installation rates.
 
-# Our Sponsors
-<img src="sponsors.png" class="logo">
+
+# **Our Sponsors**
+
+<img src="sponsors.png">
+
 ## Contact and Support
 Want as similar report for your Jurisdiction? Want to support the cause? Contact us!

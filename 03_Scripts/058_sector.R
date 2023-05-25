@@ -3,22 +3,26 @@
 simple_PGE_solar_data <- readRDS(file = "./06_Reports_Rmd/city_solar_data_standardized.rds")
 ### pulling out Res
 sector_solar_non_res <- simple_PGE_solar_data %>% 
-  select(app_approved_date, service_city, service_zip, service_county, technology_type,
-         customer_sector, contains_2022) %>% 
+  select(app_approved_date, city, service_zip, service_county, technology_type,
+         customer_sector) %>% 
   filter(technology_type == "Solar PV",
-         customer_sector != "Residential") 
+         customer_sector != "Residential") %>% 
+  rename(`Customer Segement` = customer_sector,
+         City = city)
 
 
-ggplot(sector_solar_non_res, aes(x = service_city, fill = customer_sector)) + 
+non_res_solar_sectors <- ggplot(sector_solar_non_res, aes(x = City, fill = `Customer Segement`)) + 
   geom_bar() + 
-  labs(title = "Entries by Customer Sector in Each Service City", 
+  labs(title = "", 
        x = "Service City", 
        y = "Count") +
   theme_bw() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme(panel.grid = element_blank())
 
 # Convert the ggplot2 chart to an interactive plotly chart
-ggplotly()
+non_res_solar_sectors <- ggplotly(non_res_solar_sectors)
+saveRDS(non_res_solar_sectors, file = "./06_Reports_Rmd/058_non_res_solar_sectors.rds")
 
 ### Archive
 

@@ -47,7 +47,7 @@ plot_third <-
   )
 
 # Set plot title and axis labels
-plot_third <- plot_third %>% layout(title = "Total System Cost by Third Party and Service City 2022",
+plot_third <- plot_third %>% layout(title = "",
                         xaxis = list(title = "Third Party Name"),
                         yaxis = list(title = "Total System Cost ($)"))
 

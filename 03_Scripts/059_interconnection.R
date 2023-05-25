@@ -11,9 +11,9 @@ interconnection <- simple_PGE_solar_data %>%
 # Create a bar chart of the count of interconnection_program and service_city
 p <- ggplot(interconnection, aes(x = city, fill = interconnection_program, text = paste("Interconnection Program: ", interconnection_program))) +
   geom_bar() + #color = "black"
-  labs(title = "Count of Interconnection Programs by Service City",
+  labs(title = "",
        x = "Service City",
-       y = "Number of Installs",
+       y = "Number of Install Sites",
        fill = "Interconnection Program") +
   theme(panel.background = element_rect(fill = "white"))+
   guides(fill = "none")

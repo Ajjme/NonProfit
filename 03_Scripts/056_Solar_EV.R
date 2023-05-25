@@ -8,7 +8,7 @@ solar_ev <- simple_PGE_solar_data %>%
 
 plot_ev_solar <- ggplot(solar_ev, aes(x = city, fill = electric_vehicle, text = paste("<br>Electric Vehicle: ", electric_vehicle))) + 
   geom_bar() + 
-  labs(title = "Electric Vehicle by Service City", 
+  labs(title = "", 
        x = "Service City", 
        y = "Count of Solar/Storage Installations in 2022") +
   theme(axis.title.x = element_text(hjust = 1),

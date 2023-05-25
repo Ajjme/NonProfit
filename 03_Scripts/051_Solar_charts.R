@@ -5,12 +5,12 @@ simple_PGE_solar_data <- readRDS(file = "./04_Outputs/rds/simple_PGE_solar_data.
 solar_ac <- simple_PGE_solar_data %>% 
   select(app_approved_date, service_city, service_zip, service_county, system_size_ac) %>% 
   filter(service_county == "CONTRA COSTA")%>% 
-  filter(year(app_approved_date) == 2022)
+  filter(year(app_approved_date) == 2022) 
 
 # ranking of total install in 2022 by city
 # Group by city and sum the system size by city
 city_totals_solar <- solar_ac %>%
-  group_by(city) %>%
+  group_by(service_city) %>%
   summarise(total_size_ac = sum(system_size_ac)) %>% 
   rename(city = service_city) %>% 
   mutate(city = str_to_lower(city)) %>% 
@@ -37,6 +37,7 @@ saveRDS(solar_city_standardized, file = "./06_Reports_Rmd/solar_city_standardize
 
 fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scaled, name = "Solar Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
   add_trace(y = ~total_size_ac, name = "Total Solar AC", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_pop, name = "Total Population", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -45,11 +46,15 @@ fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scal
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
-               label = "Solar Score"),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
+               label = "Stations per Vehicle"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
-               label = "Total Solar kW"
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
+               label = "Total Stations"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Vehicles"
           )
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)

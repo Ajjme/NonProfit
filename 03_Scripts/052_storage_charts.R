@@ -39,6 +39,7 @@ saveRDS(storage_city_standardized, file = "./06_Reports_Rmd/storage_city_standar
 
 fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_pop_scaled, name = "Storage Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
   add_trace(y = ~total_capacity_k_wh, name = "Total Storage kWh", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_pop, name = "Total Population", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -47,11 +48,15 @@ fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_po
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
-               label = "Storage Score"),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
+               label = "Score"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
                label = "Total Storage kWh"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Population"
           )
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)
