@@ -1,0 +1,155 @@
+---
+always_allow_html: true
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<img src="image.jpeg">
+```{r, include=FALSE}
+
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(htmlwidgets)
+library(jsonlite)
+library(leaflet)
+library(janitor)
+library(ggthemes)
+library(plotly)
+library(rjson)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(readxl)
+library(lubridate)
+```
+
+# **Introduction**
+Home electrification, which involves replacing fossil fuel-based energy sources with electricity in residential buildings, has several benefits, including:
+
+- Reduced greenhouse gas emissions: Home electrification can help reduce greenhouse gas emissions by decreasing the use of fossil fuels for heating, cooling, and other energy needs. This can help mitigate the effects of climate change and improve air quality.
+
+- Lower energy costs: Electrifying homes can reduce energy costs for homeowners over time, particularly if they use renewable energy sources like solar or wind power. Electrification can also help reduce the overall energy demand on the grid, which can lead to lower electricity prices for everyone.
+
+- Improved health: Electrification can help improve indoor air quality by eliminating the need for fossil fuel-based heating systems that can release harmful pollutants into the air. This can help reduce the risk of respiratory and other health issues associated with poor indoor air quality.
+
+- Increased energy independence: Electrifying homes can increase energy independence by reducing reliance on non-renewable energy sources and reducing the overall demand on the grid. This can help communities become more self-sufficient and resilient to disruptions in the energy supply.
+
+- Job creation: The transition to electrification can create new job opportunities in the renewable energy sector, as well as in other areas such as energy efficiency upgrades and home automation.
+
+# **Scores**
+
+```{r, echo=FALSE}
+plotly_obj_scores_housing <- readRDS(file = "./plotly_obj_scores_housing.rds")
+plotly_obj_scores_housing
+```
+
+## Electrification Ordinance Map
+```{r, echo=FALSE}
+p <- readRDS( file = "./elect_ord_map.rds")
+ggplotly(p)
+```
+An Electrification Ordinance is a rule that requires certain buildings to use electric systems instead of fossil fuel-based ones when they're being built or renovated. This means that new buildings and renovations may need to include electric infrastructure to power heating, cooling, and other energy needs. 
+Data obtained by contacting local and city officials. If your city has an ordinance and it isn't shown here please reach out.
+
+## Home Heating Scores
+
+```{r, echo=FALSE}
+
+heating_fuel_score <- readRDS(file = "./heating_fuel_score.rds")
+
+plot_ly(heating_fuel_score, x = ~city, y = ~fuel_percent_scaled, name = "Heating Fuel Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
+  add_trace(y = ~fuel_percent, name = "Percent Clean Heating", type = "bar", visible = FALSE) %>%
+   layout( 
+    updatemenus = list(
+      list(
+        type = "buttons",
+        direction = "down",
+        showactive = TRUE,
+        buttons = list(
+          list(method = "update",
+               args = list(list(visible = c(TRUE, FALSE))),
+               label = "Scores"
+               ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, TRUE))),
+               label = "Percent Clean Heating"
+               )
+        ),
+        pad = list(r = 15, t = 0, b = 0, l = 0)
+      )
+    ),
+    xaxis = list(title = "City", tickfont = list(size = 14), tickangle = 45),
+    yaxis = list(title ="", tickfont = list(size = 14)),
+    margin = list(l = 60, r = 20, t = 40, b = 40),
+    font = list(family = "Arial", size = 14)
+  )
+
+
+
+
+
+```
+Heating scores are calculated by taking the leading cities percent clean heating fuel (Electric, Solar energy and No fuel) and giving them 100 points. Every other cities was given their releative percent of this achievable target.
+
+# **Housing Characteristics**
+
+## Home Heating Equipment
+
+```{r, echo=FALSE}
+plot_heating <- readRDS( file = "plot_heating.rds")
+plot_heating
+```
+Home heating equipment encompasses a range of devices designed to provide efficient and reliable heat for residential spaces. However, it's important to consider the environmental impacts of these systems. Furnaces, for example, commonly use fuels like natural gas or heating oil, which contribute to carbon emissions and air pollution when combusted. While advancements have been made to improve their efficiency and reduce emissions, it's crucial to choose high-efficiency models and consider alternative fuel options to minimize their environmental footprint.
+
+Boilers, another type of heating equipment, can also have environmental impacts depending on the fuel used. Natural gas boilers tend to have lower carbon emissions compared to heating oil or coal-fired boilers. However, all boilers release some level of greenhouse gases and pollutants during operation. To mitigate these impacts, regular maintenance and proper sizing of boilers are necessary to ensure optimal efficiency and reduce emissions.
+
+Heat pumps, on the other hand, offer a more environmentally friendly option for heating and cooling. By extracting heat from the outdoor air or ground, they can provide efficient heating without relying on combustion. Heat pumps have a significantly lower carbon footprint compared to furnaces or boilers. However, the electricity used to power heat pumps may come from fossil fuel sources, so utilizing renewable energy or improving the grid's overall carbon intensity can further enhance their environmental benefits.
+
+Electric baseboard heaters are generally considered more environmentally friendly compared to combustion-based systems since they do not produce direct emissions. However, their environmental impact depends on the source of electricity used. If the electricity comes from renewable sources, the baseboard heaters can be a cleaner heating option. It's important to consider the overall energy mix and aim for renewable energy sources to maximize their environmental advantages.
+
+When selecting home heating equipment, it's crucial to consider not only their technical specifications but also their environmental impacts. Opting for high-efficiency models, exploring alternative fuels or energy sources, and incorporating renewable energy into the power supply can all contribute to reducing the environmental footprint of these systems.
+
+## Housing Size
+
+```{r, echo=FALSE}
+plot_cost <- readRDS(file = "./plot_cost.rds")
+plot_cost
+```
+The average size of a new single-family home in the United States was approximately 2,500 square feet - U.S. Census Bureau/the National Association of Home Builders.
+
+## Home Age
+
+```{r, echo=FALSE}
+home_age <- readRDS( file = "./home_age.rds")
+home_age
+```
+The average age of homes in the United States was approximately 40 years. However, it's important to note that this is an average figure and can vary significantly depending on the region and specific location within the country.
+
+The age of a home has a notable impact on its environmental footprint. Older homes often have lower energy efficiency due to inadequate insulation, outdated windows and doors, and inefficient heating and cooling systems. Outdated appliances and lighting fixtures in older homes can also contribute to higher energy consumption. Inefficient plumbing fixtures may result in increased water usage. However, homeowners can mitigate these environmental impacts by upgrading and retrofitting their homes with energy-efficient solutions, such as insulation, windows, appliances, and plumbing fixtures, as well as adopting renewable energy sources.
+
+# **Statewide**
+
+## Electric Heating Equipment by County
+```{r, echo=FALSE}
+
+fig_2 <- readRDS( file = "./map_heating_percent.rds")
+fig_2
+```
+
+
+# **Data Description and Citation**
+
+The data used in this analysis includes the following:
+
+- Electrification Ordinance: Obtained by contacting every city. 
+
+- Home Characteristics US census Place and County: This dataset includes the Housing characteristics by zip code. The data was obtained from the American Community Survey 2021. https://www.census.gov/programs-surveys/acs/data.html
+
+If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at info@cccclimateleaders.org
+
+# **Our Sponsors**
+<img src="sponsors.png">

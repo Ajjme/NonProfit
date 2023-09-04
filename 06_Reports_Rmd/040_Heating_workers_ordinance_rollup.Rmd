@@ -138,7 +138,7 @@ The age of a home has a notable impact on its environmental footprint. Older hom
 
 # **Statewide**
 
-## Electric Heating Equipment by County
+## Percetn Clean Heating Equipment by County
 ```{r, echo=FALSE}
 
 fig_2 <- readRDS( file = "./map_heating_percent.rds")
@@ -150,11 +150,12 @@ fig_2
 
 The data used in this analysis includes the following:
 
-- Electrification Ordinance:
+- Electrification Ordinance: Obtained by contacting every city. 
 
-- Home Characteristics US census Place and County: This dataset includes the Housing characteristics by zip code. The data was obtained from the American Community Survey 2021.
+- Home Characteristics US census Place and County: This dataset includes the Housing characteristics by zip code. The data was obtained from the American Community Survey 2021. https://www.census.gov/programs-surveys/acs/data.html
 
-If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at  Ajohns2050@gmail.com and to info@cccclimateleaders.org
+If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at info@cccclimateleaders.org
+
 
 # **Our Sponsors**
 <img src="sponsors.png">

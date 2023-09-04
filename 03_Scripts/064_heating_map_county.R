@@ -74,7 +74,7 @@ fig_2 <- fig_2 %>% colorbar(title = "Percent Clean Heating",
                             y = 0.9 # set the y position of the colorbar
 )
 fig_2 <- fig_2 %>% layout(
-  title = "Percent Clean Heating in each County",
+  title = "",
   margin = list(l = 0, r = 0, t = 20, b = 0)
 )
 

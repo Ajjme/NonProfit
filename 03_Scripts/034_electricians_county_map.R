@@ -1,7 +1,4 @@
 
-####
-library(plotly)
-library(rjson)
 
  url <- 'https://raw.githubusercontent.com/plotly/datasets/master/geojson-counties-fips.json'
 counties <- rjson::fromJSON(file=url)
@@ -9,16 +6,18 @@ counties <- rjson::fromJSON(file=url)
 # ### add fips to data
 # 
 # urlmap <- "https://raw.githubusercontent.com/kjhealy/fips-codes/master/state_and_county_fips_master.csv"
-join_county_fips <- left_join(standardized_county_electricians, county_fips_map, by= "county") %>% 
-  #drop_na(fips) %>% #out of state
-  mutate_at(vars(value), as.numeric) %>% 
-  #this was really annoying 
-  mutate(fips = stringr::str_pad(fips, width = 5, pad = "0")) %>% 
-  mutate_at(vars(fips), as.character) %>% 
-  mutate_all(~ifelse(is.na(.), 0, .))
+
 
 
 standardized_county_electricians <- readRDS(file = "./04_Outputs/rds/employment_county_data_map.rds")
+# 
+# join_county_fips <- left_join(standardized_county_electricians, county_fips_map, by= "county") %>% 
+#   #drop_na(fips) %>% #out of state
+#   mutate_at(vars(value), as.numeric) %>% 
+#   #this was really annoying 
+#   mutate(fips = stringr::str_pad(fips, width = 5, pad = "0")) %>% 
+#   mutate_at(vars(fips), as.character) %>% 
+#   mutate_all(~ifelse(is.na(.), 0, .))
 
 library(jsonlite)
 
@@ -40,7 +39,7 @@ fig_2 <- plot_ly()
 fig_2 <- fig_2 %>% add_trace(
   type="choropleth",
   geojson=counties,
-  locations=join_county_fips$fips,
+  locations=standardized_county_electricians$fips,
   z=standardized_county_electricians$standardized_electricians_per_ten_thousand,
   colorscale= 'oranges', #colors = PrGn
   reversescale = T,
@@ -63,7 +62,7 @@ fig_2 <- fig_2 %>% add_polygons(
 )
 
 fig_2 <- fig_2 %>% layout(
-  title = "Electricians per Ten Thousand",
+  title = "",
   margin = list(l = 0, r = 0, t = 20, b = 0)
 )
 

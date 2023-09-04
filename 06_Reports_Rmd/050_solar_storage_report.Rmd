@@ -127,6 +127,8 @@ fig_storage <- plot_ly(storage_city_standardized, x = ~city, y = ~storage_per_po
 
 fig_storage
 ```
+Moraga, Concord, and Danville all have at least one storage project with a 6953 kWh rating. This installation drives their high score.
+
 # **Install Statistics**
 
 ## Non-Residential Installs
@@ -168,6 +170,8 @@ plot_int_con <- readRDS(file = "plot_int_con.rds")
 plot_int_con
 ```
 
+Interconnection systems for rooftop solar in California refer to the process and regulations that govern the connection of solar photovoltaic (PV) systems to the electrical grid. These systems ensure that rooftop solar installations can safely and reliably generate electricity and feed it back into the grid. The interconnection process is overseen by the California Public Utilities Commission (CPUC) and is designed to streamline the integration of renewable energy sources while maintaining grid stability. 
+
 ## EV Solar Combination Rates
 ```{r , echo=FALSE}
 plot_ev_solar <- readRDS(file = "plot_ev_solar.rds")
@@ -178,7 +182,8 @@ Pairing an electric vehicle (EV) with solar power delivers a range of benefits, 
 # **Data Description and Citation**
 
 The data used in this analysis includes the following:
-The Database of State Incentives for Renewable and Efficiency (DSIRE) provides information on solar and storage installation rates.
+The California Distributed Generation Statistics per CPUC Energy Diversion provides information on solar and storage installation rates. https://www.californiadgstats.ca.gov/downloads/
+Last updated March 31 2023
 
 
 # **Our Sponsors**

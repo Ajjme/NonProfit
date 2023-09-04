@@ -6,7 +6,9 @@ electrification_data <- read.csv("./02_inputs/Total_Scores_Data_2023.csv") %>%
   clean_names() %>% 
   select(city, "electrification_preliminary" ,"electrification_score") %>% 
   mutate(city = str_to_lower(city)) %>% 
-  clean_city_names_uni_ccc()
+  clean_city_names_uni_ccc() %>% 
+  mutate(electrification_score = ifelse(city == "San Pablo", 100, electrification_score),
+         electrification_score = ifelse(city == "Lafayette", 25, electrification_score))
 
 saveRDS(electrification_data, file = "./04_Outputs/rds/electrification_data.rds")
 

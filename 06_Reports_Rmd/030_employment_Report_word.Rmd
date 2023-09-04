@@ -1,0 +1,46 @@
+---
+always_allow_html: true
+output: word_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<img src="image.jpeg">
+```{r, include=FALSE}
+
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(htmlwidgets)
+library(jsonlite)
+library(leaflet)
+library(janitor)
+library(ggthemes)
+library(plotly)
+library(rjson)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(readxl)
+library(lubridate)
+```
+
+# **Introduction**
+Fellowship and job training programs play a vital role in equipping the next generation with the knowledge, skills, and passion necessary to address the pressing environmental challenges we face. By providing students with a comprehensive understanding of sustainability principles, they can develop innovative solutions to reduce waste, conserve resources, promote renewable energy, and mitigate the impacts of climate change. Through experiential learning, these fellows can gain practical experience and collaborate with experts in various sustainability fields, fostering their critical thinking abilities and nurturing a deep sense of responsibility towards the environment. 
+By investing in the education and training of students through this initiative, we lay the foundation for a sustainable future that values the well-being of both people and the planet.
+
+All data used is sourced from publicly available data sets, ensuring transparency and accountability.
+
+# **Scores**
+
+## Civic Spark and Climate Action Fellows Scores
+
+```{r, echo=FALSE, warning = FALSE}
+
+
+plotly_obj_scores_employ <- readRDS(file = "./plotly_obj_scores_employ.rds")
+plotly_obj_scores_employ
+```

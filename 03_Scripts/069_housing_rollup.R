@@ -2,10 +2,12 @@
 heating_fuel_score <- readRDS( file = "./06_Reports_Rmd/heating_fuel_score.rds")
 electrification_data <- readRDS( file = "./04_Outputs/rds/electrification_data.rds")
 
-scores_housing <- full_join(heating_fuel_score, electrification_data, by = "city")
+electrification_data_shx <- readRDS(file = "./04_Outputs/rds/electrification_data_shx.rds")
+
+scores_housing <- full_join(heating_fuel_score, electrification_data_shx, by = "city")
 
 plotly_obj_scores_housing <- scores_housing %>% 
-  plot_ly(x = ~city, type = "bar", y = ~electrification_score, name = "Electrification Ordiance Score", 
+  plot_ly(x = ~city, type = "bar", y = ~Electrification_Score, name = "Electrification Ordiance Score", 
           marker = list(color = "yellow",line = list(color = "black", width = 1))) %>% 
   add_trace(y = ~fuel_percent_scaled, name = "Heating Fuel Score", 
             marker = list(color = "orange",line = list(color = "black", width = 1))) %>% 

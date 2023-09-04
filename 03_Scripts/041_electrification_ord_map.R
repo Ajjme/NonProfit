@@ -13,8 +13,8 @@ electrification_data_shx$city <- c("Antioch", "Brentwood", "Clayton", "Concord",
                       "Pittsburg", "Pleasant Hill", "Richmond", "San Pablo", "San Ramon", "Walnut Creek")
 
 electrification_data_shx$Electrification_Score <- c("0", "0", "0", "0", "0", "25", 
-                                   "100", "25", "25", "0", "0", "0", "0",
-                                   "0", "0", "100", "0", "0", "0")
+                                   "100", "25", "100", "0", "0", "0", "0",
+                                   "0", "0", "100", "100", "0", "0")
 
 # Plot the map
 p <- ggplot(electrification_data_shx) +
@@ -22,7 +22,7 @@ p <- ggplot(electrification_data_shx) +
   scale_fill_manual(values = c("100" = "green", "25" = "yellow", "0" = "white")) +
   theme_void()
 
-
+saveRDS(electrification_data_shx, file = "./04_Outputs/rds/electrification_data_shx.rds")
 saveRDS(p, file = "./06_Reports_Rmd/elect_ord_map.rds")
 
 ord_map <- ggplotly(p)
