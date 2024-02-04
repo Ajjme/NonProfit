@@ -16,10 +16,10 @@ full_mce_county_sum <- full_mce_county %>%
   summarise(average_participation = mean(participation_rate),
             average_deep_green = mean(deep_green_rate))
 
-fig_multi <- plot_ly(full_mce_county_sum, x = ~County, y = ~average_participation, name = "Participation Rate", type = "bar", showlegend = FALSE, marker =   list(line = list(color = "black", width = 1))) %>%
+fig_multi <- plot_ly(full_mce_county_sum, x = ~County, y = ~average_participation, name = "Participation Rate", type = "bar", showlegend = FALSE, marker = list(color = "orange",line = list(color = "black", width = 1))) %>%
 
   layout( 
-    xaxis = list(title = "City", tickfont = list(size = 14), tickangle = 45),
+    xaxis = list(title = "County", tickfont = list(size = 14), tickangle = 45),
     yaxis = list(title = "Average Participation Rate", tickfont = list(size = 14)),
     margin = list(l = 60, r = 20, t = 40, b = 40),
     font = list(family = "Arial", size = 14)
@@ -32,7 +32,7 @@ saveRDS(fig_multi, file = "./06_Reports_Rmd/023_county_part_averages.rds")
 fig_multi_deep <- plot_ly(full_mce_county_sum, x = ~County, y = ~average_deep_green, name = "Participation Rate", type = "bar", showlegend = FALSE, marker = list(color = "forestgreen",line = list(color = "black", width = 1))) %>%
   
   layout( 
-    xaxis = list(title = "City", tickfont = list(size = 14), tickangle = 45),
+    xaxis = list(title = "County", tickfont = list(size = 14), tickangle = 45),
     yaxis = list(title = "Average Deep Green Rate", tickfont = list(size = 14)),
     margin = list(l = 60, r = 20, t = 40, b = 40),
     font = list(family = "Arial", size = 14)

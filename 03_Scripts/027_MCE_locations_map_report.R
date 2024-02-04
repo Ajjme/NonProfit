@@ -1,7 +1,7 @@
 full_mce <- readRDS( file = "./04_Outputs/rds/full_mce.rds")
 
 city_data <- data.frame(
-  community = c("Concord", "Contra Costa", "Danville", "El Cerrito", "Lafayette", "Martinez", "Moraga",
+  community = c("Concord", "Unicorporated Contra Costa", "Danville", "El Cerrito", "Lafayette", "Martinez", "Moraga",
            "Oakley", "Pinole", "Pittsburg", "Pleasant Hill", "Richmond", "San Pablo", "San Ramon",
            "Walnut Creek", "Hercules", "Belvedere", "Corte Madera", "Fairfax", "Larkspur", "Marin County",
            "Mill Valley", "Novato", "Ross", "San Anselmo", "San Rafael", "Sausalito", "Tiburon",
@@ -39,3 +39,4 @@ map <- leaflet(mce) %>%
 map
 # Display the map
 saveRDS(map, file = "./06_Reports_Rmd/027_map_cities_in_MCE.rds")
+

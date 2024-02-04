@@ -9,18 +9,17 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-<img src="MCE.png" class="logo">
 <img src="image.jpeg">
 
-# **Advantages of Opting for Marin County Energy(MCE)**
+# **Advantages of Opting for MCE**
 
 - MCE offers a range of clean energy alternatives, such as 60% and 100% renewable sources.
-
 - By choosing MCE, customers can enjoy competitive and consistent pricing, while also reaping invaluable environmental advantages.
-
 - MCE actively invests in the community through local energy initiatives, workforce development, and various programs.
-
 - Opting for MCE grants customers the power of local control over electric generation service options and rates.
+
+For more information: Visit the MCE Website
+
 ```{r, include=FALSE , warning=FALSE}
 
 library(tidyverse)
@@ -41,7 +40,10 @@ library(rjson)
 MCE_score <- readRDS( file = "021_MCE_score.rds")
 MCE_score
 ```
-80 Percent of Contra Costa County Cities are actively enrolled in MCE. Scores here give 50 points for being enrolled, 25 points for having the city municipality enrolled in Deep Green. (MCE's 100 percent renewable energy option). The last 25 points are awarded based on local participation rates with the leading city getting all 25 points and each city getting a portion of the 25 points based how they compare to the leading city. 
+80 Percent of Contra Costa County Cities are actively enrolled in MCE. 
+- Scores here give 50 points for being enrolled 
+- 25 points for having the city municipality enrolled in Deep Green. (MCE's 100 percent renewable energy option). 
+- 25 points are awarded based on local Enrollment participation rates with the leading city getting all 25 points and each city getting a portion of the 25 points based how they compare to the leading city. 
 
 
 ## **MCE Participating Cities**
@@ -59,7 +61,7 @@ MCE services more then just Contra Costa County.
 county_part_averages <- readRDS( file = "023_county_part_averages.rds")
 county_part_averages
 ```
-This excludes non participating Cities.
+This excludes non participating cities.
 
 ## **County Average Deep Green Rates**
 ```{r, echo=FALSE}
@@ -69,7 +71,7 @@ county_deep_averages
 This excludes non participating Cities.
 
 ## **CO2 Reduced All Cities**
-```{r, echo=FALSE}
+```{r, echo=FALSE , fig.width= 8}
 MCE_co2_reduced <- readRDS( file = "022_MCE_co2_reduced.rds")
 MCE_co2_reduced
 ```
@@ -79,6 +81,7 @@ Cars: On average, a passenger vehicle emits approximately 4.6 metric tons of CO2
 
 Homes: The average annual CO2 emissions from a U.S. household are around 7.5 metric tons. Consequently, 20,000 MT of CO2 is roughly equivalent to the annual emissions of 2,667 households.
 
+MT CO2 reduced is based on 2010-2020 averages of MCE compared to standard PG&E emissions. Used for illistrative purposes.
 
 # **MCE in Action**
 
@@ -101,6 +104,8 @@ MCE (Marin Clean Energy) is a remarkable energy provider that exemplifies its mi
 # **Data Description and Citation**
 
 The data used in this analysis is provided directly from MCE in 2023.
+Additional data found here:
+https://www.mcecleanenergy.org/service-area/
 
 # **Our Sponsors**
-<img src="sponsors.png">
+<img src="updatesponsors.png">

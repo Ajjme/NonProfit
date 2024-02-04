@@ -70,7 +70,7 @@ fig_multi <- plot_ly(solar_city_standardized, x = ~city, y = ~solar_per_pop_scal
 # save the Plotly object to an RDS file
 saveRDS(fig_multi, file = "./06_Reports_Rmd/fig_multi.rds")
 
-
+saveWidget(widget = fig_multi, file = "test.html")
 
 
 
