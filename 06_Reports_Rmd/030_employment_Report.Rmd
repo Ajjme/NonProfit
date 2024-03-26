@@ -197,7 +197,7 @@ The data used in this analysis includes the following:
 
 - Electricians by US census Place and County: This dataset includes the number of electricians in each place/County of California. The data was obtained from the American Community Survey 2018 which is collected every 5 years.
 
-If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at  Ajohns2050@gmail.com and to info@cccclimateleaders.org
+If you have any questions or comments about this report or the data sources used, please feel free to reach out to the author at info@cccclimateleaders.org
 
 
 ## Data Collection

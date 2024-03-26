@@ -7,7 +7,7 @@ equipment <- simple_PGE_solar_data %>%
          inverter_manufacturer_1, generator_manufacturer_1,
          generator_model_1, inverter_model_1, interconnection_program, contains_2022) %>% 
   filter(service_county == "CONTRA COSTA") %>% 
-  filter(contains_2022 == TRUE) 
+  filter(contains_2023 == TRUE) 
 
 
 top_manufacturers <- equipment %>%

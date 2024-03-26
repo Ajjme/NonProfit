@@ -40,7 +40,7 @@ saveRDS(fig_installer, file = "./06_Reports_Rmd/fig_installer.rds")
 installer_name_system <- simple_PGE_solar_data %>% 
   select(app_approved_date, service_city, service_zip, service_county, installer_name, contains_2022) %>% 
   filter(service_county == "CONTRA COSTA")%>% 
-  filter(contains_2022 == TRUE) 
+  filter(contains_2023 == TRUE) 
 
 ## We need to clean installer name
 

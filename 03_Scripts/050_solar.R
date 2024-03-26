@@ -2,12 +2,12 @@
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #may have to change downloaded name
-PGE_solar_data <- read_csv("../Drawdown/PGE_Interconnected_Project_Sites_2023-02-28.csv") %>% 
+PGE_solar_data <- read_csv("./02_inputs/PGE_Interconnected_Project_Sites_2023-12-31.csv") %>% 
   clean_names()
 
 solar_data <- PGE_solar_data %>% 
   filter(service_county == "CONTRA COSTA")%>% 
-  filter(year(app_approved_date) == 2022) %>% 
+  filter(year(app_approved_date) == 2023) %>% 
   rename(city = service_city) %>% 
   mutate(city = str_to_lower(city)) 
 

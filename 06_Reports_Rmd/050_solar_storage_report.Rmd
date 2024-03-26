@@ -148,7 +148,7 @@ plot_cost
 
 ## 3rd Party Ownership Rates
 
-```{r , echo=FALSE}
+```{r , echo=FALSE, warning=FALSE}
 plot_third <- readRDS(file = "plot_third.rds")
 plot_third
 ```
@@ -183,7 +183,7 @@ Pairing an electric vehicle (EV) with solar power delivers a range of benefits, 
 
 The data used in this analysis includes the following:
 The California Distributed Generation Statistics per CPUC Energy Diversion provides information on solar and storage installation rates. https://www.californiadgstats.ca.gov/downloads/
-Last updated March 31 2023
+Last updated March 15 2024 data from Dec 31, 2023
 
 
 # **Our Sponsors**

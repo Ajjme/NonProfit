@@ -1,11 +1,16 @@
 
+#- California Energy Commission (CEC). (2022). Zero-Emission Vehicle (ZEV) Sales [Data file]. Retrieved from https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics/new-zev-sales
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #may have to change downloaded name
+# 
+# zev_sales_zip <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "ZIP") %>% 
+#   clean_names() %>% 
+#   filter(data_year == "2022")
 
-zev_sales_zip <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "ZIP") %>% 
+zev_sales_zip <- read_xlsx("./02_inputs/New_ZEV_Sales_Last_updated_01-31-2024_ada.xlsx", sheet = "ZIP") %>% 
   clean_names() %>% 
-  filter(data_year == "2022")
+  filter(data_year == "2023")
 
 zev_sales_zip$number_of_vehicles <- as.numeric(zev_sales_zip$number_of_vehicles)
 
@@ -64,21 +69,22 @@ ZEV_sales_city_standardized_phev <- ZEV_sales_city_standardized %>%
 saveRDS(ZEV_sales_city_standardized_elect, file = "./06_Reports_Rmd/ZEV_sales_city_standardized_elect.rds")
 
 # Create a ggplot object with the ZEV_sales_city_standardized dataframe
-# plotly__obj <- ggplot(ZEV_sales_city_standardized_elect, aes(x = city, y = ev_per_total_vehicle_scaled, fill = fuel_type)) + 
-#   geom_col(position = "dodge", color = "black") +
-#   labs(title = "Ranked EV Sales", y = "EV Ranking") +
-#   theme(axis.title.x = element_text(hjust = 1),
-#         axis.title.y = element_text(hjust = 1),
-#         panel.grid.major.y = element_line(color = "gray"),
-#         panel.background = element_rect(fill = "white"),
-#         axis.text.x = element_text(angle = 45, hjust = 1)) 
+plotly__obj <- ggplot(ZEV_sales_city_standardized_elect, aes(x = city, y = ev_per_total_vehicle_scaled, fill = fuel_type)) +
+  geom_col(position = "dodge", color = "black") +
+  labs(title = "Ranked EV Sales", y = "EV Ranking") +
+  theme(axis.title.x = element_text(hjust = 1),
+        axis.title.y = element_text(hjust = 1),
+        panel.grid.major.y = element_line(color = "gray"),
+        panel.background = element_rect(fill = "white"),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 ### with filter
 # Convert the ggplot object to a plotly object
 plotly__obj <- ggplotly(plotly__obj)
 
 fig_multi <- plot_ly(ZEV_sales_city_standardized_elect, x = ~city, y = ~ev_per_total_vehicle_scaled, name = "EV Score", type = "bar", showlegend = FALSE, marker = list(line = list(color = "black", width = 1))) %>%
-  add_trace(y = ~total_vehicles, name = "Total EV Sold", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_vehicles, name = "EVs Sold", type = "bar", visible = FALSE) %>%
+  add_trace(y = ~total_vehicle, name = "Total Vehicles", type = "bar", visible = FALSE) %>%
   layout( 
     updatemenus = list(
       list(
@@ -87,12 +93,15 @@ fig_multi <- plot_ly(ZEV_sales_city_standardized_elect, x = ~city, y = ~ev_per_t
         showactive = TRUE,
         buttons = list(
           list(method = "update",
-               args = list(list(visible = c(TRUE, FALSE))),
+               args = list(list(visible = c(TRUE, FALSE, FALSE))),
                label = "EV Score"),
           list(method = "update",
-               args = list(list(visible = c(FALSE, TRUE))),
-               label = "Total EV Sold"
-          )
+               args = list(list(visible = c(FALSE, TRUE, FALSE))),
+               label = "EVs sold"
+          ),
+          list(method = "update",
+               args = list(list(visible = c(FALSE, FALSE, TRUE))),
+               label = "Total Vehicles")
         ),
         pad = list(r = 15, t = 0, b = 0, l = 0)
       )
@@ -106,4 +115,4 @@ fig_multi <- plot_ly(ZEV_sales_city_standardized_elect, x = ~city, y = ~ev_per_t
 
 # save the Plotly object to an RDS file
 saveRDS(fig_multi, file = "./06_Reports_Rmd/EV_Score_and_totals.rds")
-
+saveRDS(ZEV_sales_city_standardized_elect, file = "./06_Reports_Rmd/EV_Score_and_totals_data.rds")

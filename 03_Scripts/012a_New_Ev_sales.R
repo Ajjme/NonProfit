@@ -2,6 +2,8 @@
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #may have to change downloaded name
+#https://catalog.data.gov/dataset/vehicle-fuel-type-count-by-zip-code
+#not updated at source
 
 car_sales_zip <- read_csv("./02_inputs/vehicle-fuel-type-count-by-zip-code-2022.csv") %>% 
   clean_names() %>% 

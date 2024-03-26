@@ -1,5 +1,5 @@
 #https://data.census.gov/table?q=6355:+Electricians&g=040XX00US06$1600000_160XX00US0602252,0608142,0616000,0668378&tid=ACSEEO5Y2018.EEOALL1R&moe=false
-
+#https://www.census.gov/topics/employment/equal-employment-opportunity-tabulation.html
 ### needed to edit the csv
 
 employment_place_data <- read.csv("./02_inputs/ACSEEO5Y2018.EEOALL1R-place.csv") %>% 

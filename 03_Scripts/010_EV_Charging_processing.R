@@ -5,7 +5,8 @@ source("./03_Scripts/000_init.R")
 #https://afdc.energy.gov/data_download/
 
 Alt_stations <- read.csv("./02_inputs/alt_fuel_stations (Mar 31 2023).csv")
-
+#2024
+Alt_stations <- read.csv("./02_inputs/alt_fuel_stations (Mar 13 2024).csv")
 #Cities <- fromJSON("stanford-vj593xs7263-geojson.json", simplifyDataFrame=FALSE)
 
 colnames(Alt_stations)
@@ -46,8 +47,8 @@ census_designated_zones <-
 
 ### Main df--------------------------
 #creating different station type dfs
-EV_stations <- Alt_stations %>% select(ï..Fuel.Type.Code, City, Longitude, Latitude, State, EV.Level1.EVSE.Num, EV.Level2.EVSE.Num, EV.DC.Fast.Count, EV.Network, ID, Facility.Type, EV.Pricing, EV.On.Site.Renewable.Source, Restricted.Access) %>%
-  filter(ï..Fuel.Type.Code == "ELEC") %>%
+EV_stations <- Alt_stations %>% select(Fuel.Type.Code, City, Longitude, Latitude, State, EV.Level1.EVSE.Num, EV.Level2.EVSE.Num, EV.DC.Fast.Count, EV.Network, ID, Facility.Type, EV.Pricing, EV.On.Site.Renewable.Source, Restricted.Access) %>%
+  filter(Fuel.Type.Code == "ELEC") %>%
   filter(State == "CA") %>%
   replace(is.na(.), 0)%>%
   mutate(Total_stations = EV.Level1.EVSE.Num+EV.Level2.EVSE.Num+EV.DC.Fast.Count)
@@ -118,7 +119,7 @@ EV_stations_total_uni_ccc <- EV_stations_total %>%
 ### other stations ----------------
 Hydrogen_stations <-
   Alt_stations %>% select(
-    ï..Fuel.Type.Code,
+    Fuel.Type.Code,
     City,
     Latitude,
     Longitude,
@@ -131,7 +132,7 @@ Hydrogen_stations <-
 
 CNG_stations <-
   Alt_stations %>% select(
-    ï..Fuel.Type.Code,
+    Fuel.Type.Code,
     City,
     Latitude,
     Longitude,

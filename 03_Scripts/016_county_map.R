@@ -1,11 +1,11 @@
 ### Input ----------------
-zev_sales_county <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-18-2023.xlsx", sheet = "County") %>% 
+zev_sales_county <- read_excel("./02_inputs/New_ZEV_Sales_Last_updated_01-31-2024_ada.xlsx", sheet = "County") %>% 
   clean_names()
 
 ### Map -------------------
 zev_sales_one_value <- zev_sales_county %>% 
   pivot_wider(names_from = c(fuel_type, make, model), values_from = number_of_vehicles) %>% 
-  filter(data_year == 2022) %>%
+  filter(data_year == 2023) %>%
   mutate(Total_Sales = rowSums(select(., -c(data_year, county)), na.rm = TRUE))
 
 ####

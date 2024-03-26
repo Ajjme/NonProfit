@@ -1,4 +1,5 @@
 heating_fuel_percent_two <- readRDS(file = "./04_Outputs/rds/heating_fuel_percent_two.rds")
+#comes from 061
 
 max_value <- max(heating_fuel_percent_two$fuel_percent)
 heating_fuel_score <- heating_fuel_percent_two %>%  

@@ -10,7 +10,7 @@ plot_ev_solar <- ggplot(solar_ev, aes(x = city, fill = electric_vehicle, text = 
   geom_bar() + 
   labs(title = "", 
        x = "Service City", 
-       y = "Count of Solar/Storage Installations in 2022") +
+       y = "Count of Solar/Storage Installations in 2023") +
   theme(axis.title.x = element_text(hjust = 1),
         axis.title.y = element_text(hjust = 1),
         panel.grid.major.y = element_line(color = "gray"),

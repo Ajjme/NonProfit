@@ -5,7 +5,7 @@ simple_PGE_solar_data <- readRDS(file = "./04_Outputs/rds/simple_PGE_solar_data.
 solar_ac <- simple_PGE_solar_data %>% 
   select(app_approved_date, service_city, service_zip, service_county, system_size_ac) %>% 
   filter(service_county == "CONTRA COSTA")%>% 
-  filter(year(app_approved_date) == 2022) 
+  filter(year(app_approved_date) == 2023) 
 
 # ranking of total install in 2022 by city
 # Group by city and sum the system size by city
