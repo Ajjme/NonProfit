@@ -5,16 +5,18 @@ source("./03_Scripts/000_init.R")
 ### Inputs------------------
 
 #update by hand
-civic_data <- read_xlsx("./02_inputs/ContraCosta CivicSpark Projects 2022.xlsx") %>% 
+# civic_data_2022 <- read_xlsx("./02_inputs/ContraCosta CivicSpark Projects 2022.xlsx") %>% 
+#   clean_names()
+civic_data <- read_xlsx("./02_inputs/Contra Costa Calculations - 23-24.xlsx") %>% 
   clean_names() %>% 
   mutate(city = str_to_lower(city)) %>% 
   clean_city_names_uni_ccc() %>% 
   mutate(civic_score = final_score) %>% 
   #select(-final_score) %>% 
   distinct(city, .keep_all = TRUE) %>% 
-  mutate(civic_score = case_when(str_detect(city, "Uni. CCC") ~ as.numeric("100"),
+  mutate(civic_score = case_when(str_detect(city, "Uni. CCC") ~ as.numeric("50"),
                                  TRUE ~ civic_score)) %>% 
-  mutate(this_year = case_when(str_detect(civic_spark_fellow_requested_for_22_23, "Yes") ~ as.numeric("1"),
+  mutate(this_year = case_when(str_detect(civic_spark_fellow_requested_for_23_24, "Yes") ~ as.numeric("1"),
                                  TRUE ~ as.numeric("0"))) 
 
 

@@ -19,12 +19,24 @@ Total_Scores_Data <- read.csv("./02_inputs/Total_Scores_Data_2023.csv") %>%
   clean_city_names_uni_ccc() %>% 
   select(city, climate_emergency_score)
 
+#waste --- 96
+
+waste_data <- readRDS(file = "./06_Reports_Rmd/waste_scores_all_cities.rds") %>% 
+  rename(city = jurisdiction) %>% 
+  mutate(city = str_to_lower(city)) %>% 
+  clean_city_names_uni_ccc() %>%
+  select(city, total_score) %>% 
+  drop_na()
+#saveRDS(all_cities_score_2, file = "./06_Reports_Rmd/waste_scores_all_cities.rds")
+
 ### Joining----------------------
 ev_and_solar <- full_join(scores_ev, solar_city_standardized, by ="city")
 ev_and_solar_and_mce  <- full_join(ccc_mce_df_score, ev_and_solar, by ="city")
 ev_and_solar_and_mce_and_civic  <- full_join(ev_and_solar_and_mce, civic_data , by ="city")
 ev_and_solar_and_mce_and_civic_electrification  <- full_join(ev_and_solar_and_mce_and_civic, electrification_data , by ="city")
-all_scores <-  full_join(ev_and_solar_and_mce_and_civic_electrification, Total_Scores_Data, by ="city") %>% 
+ev_and_solar_and_mce_and_civic_electrification_waste  <- full_join(ev_and_solar_and_mce_and_civic_electrification, waste_data , by ="city")
+
+all_scores <-  full_join(ev_and_solar_and_mce_and_civic_electrification_waste, Total_Scores_Data, by ="city") %>% 
   select(city, matches("(scaled|score)")) %>% 
   mutate_if(is.numeric, round, digits = 0)
 
@@ -70,43 +82,48 @@ generateHoverTemplate <- function(name) {
 }
 
 # Update the plotly code
-plotly_obj_roll_up_final <- all_scores %>%
-  plot_ly(x = ~city, type = "bar", y = ~chargers_per_total_vehicle_scaled, name = "Chargers per Vehicle",
-            marker = list(color = "khaki", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("Chargers per Vehicle Score")) %>%
-  add_trace(y = ~solar_per_pop_scaled, name = "Solar MW Installed",
-            marker = list(color = "yellow", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("Solar MW Installed Score")) %>%
-  add_trace(y = ~civic_score, name = "Civic Spark",
-            marker = list(color = "grey", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("Civic Spark Score")) %>%
-  add_trace(y = ~electrification_score, name = "Electrification Ordinance",
-            marker = list(color = "yellowgreen", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("Electrification Ordinance Score")) %>%
-  add_trace(y = ~climate_emergency_score, name = "Declaration of Climate Emergency",
-            marker = list(color = "008000", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("Declaration of Climate Emergency Score")) %>%
-  add_trace(y = ~mce_score, name = "MCE Participation",
-            marker = list(color = "006400", line = list(color = "black", width = 1)),
-            hovertemplate = generateHoverTemplate("MCE Participation Score")) %>%
-  layout(title = list(text = "Scores in Contra Costa County",
-                      font = list(family = "Arial", size = 22, color = "black", face = "bold")),
-         xaxis = list(title = list(text = "City",
-                                   font = list(family = "Arial", size = 20, color = "black", face = "bold"),
-                                   y = 0.8
-                                   ),
-                      tickangle = 45, categoryorder = "total descending"),
-         yaxis = list(title = list(text = "Score",
-                                   font = list(family = "Arial", size = 20, color = "black", face = "bold"))),
-         barmode = "stack",
-         #my_theme,
-         legend = list(x = 0.5, y = -1, orientation = "h", traceorder = "normal",
-                       font = list(family = "Arial", size = 20, face = "bold"),
-                       xanchor = "center", itemwidth = 10, itemsizing = "constant"),
-          margin = list(l = 50, r = 50, t = 80, b = 50)) 
+# plotly_obj_roll_up_final <- all_scores %>%
+#   plot_ly(x = ~city, type = "bar", y = ~chargers_per_total_vehicle_scaled, name = "Chargers per Vehicle",
+#             marker = list(color = "khaki", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("Chargers per Vehicle Score")) %>%
+#   add_trace(y = ~solar_per_pop_scaled, name = "Solar MW Installed",
+#             marker = list(color = "yellow", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("Solar MW Installed Score")) %>%
+#   add_trace(y = ~civic_score, name = "Civic Spark",
+#             marker = list(color = "grey", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("Civic Spark Score")) %>%
+#   add_trace(y = ~electrification_score, name = "Electrification Ordinance",
+#             marker = list(color = "yellowgreen", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("Electrification Ordinance Score")) %>%
+#   add_trace(y = ~climate_emergency_score, name = "Declaration of Climate Emergency",
+#             marker = list(color = "008000", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("Declaration of Climate Emergency Score")) %>%
+#   add_trace(y = ~mce_score, name = "MCE Participation",
+#             marker = list(color = "006400", line = list(color = "black", width = 1)),
+#             hovertemplate = generateHoverTemplate("MCE Participation Score")) %>%
+#   layout(title = list(text = "Scores in Contra Costa County",
+#                       font = list(family = "Arial", size = 22, color = "black", face = "bold")),
+#          xaxis = list(title = list(text = "City",
+#                                    font = list(family = "Arial", size = 20, color = "black", face = "bold"),
+#                                    y = 0.8
+#                                    ),
+#                       tickangle = 45, categoryorder = "total descending"),
+#          yaxis = list(title = list(text = "Score",
+#                                    font = list(family = "Arial", size = 20, color = "black", face = "bold"))),
+#          barmode = "stack",
+#          #my_theme,
+#          legend = list(x = 0.5, y = -1, orientation = "h", traceorder = "normal",
+#                        font = list(family = "Arial", size = 20, face = "bold"),
+#                        xanchor = "center", itemwidth = 10, itemsizing = "constant"),
+#           margin = list(l = 50, r = 50, t = 80, b = 50)) 
+
+
 
 plotly_obj_roll_up_final <- all_scores %>%
-  plot_ly(x = ~city, type = "bar", y = ~chargers_per_total_vehicle_scaled, name = "Chargers per Vehicle",
+  plot_ly(x = ~city, type = "bar", y = ~total_score, name = "Waste Programs and Disposal Rate",
+          marker = list(color = "burlywood", line = list(color = "black", width = 1)),
+          hovertemplate = generateHoverTemplate("Waste Programs and Disposal Rate")) %>%
+  add_trace(y = ~chargers_per_total_vehicle_scaled, name = "Chargers per Vehicle",
           marker = list(color = "khaki", line = list(color = "black", width = 1)),
           hovertemplate = generateHoverTemplate("Chargers per Vehicle Score")) %>%
   add_trace(y = ~solar_per_pop_scaled, name = "Solar MW Installed",
@@ -169,7 +186,7 @@ p <- plotly_obj_roll_up_final  %>% layout(
   responsive = TRUE
 )
 plotly_obj_roll_up_final
-saveWidget(p, file="07_Rollup/Stacked_bar_graph_2023_final_V9.html")
+saveWidget(p, file="07_Rollup/Stacked_bar_graph_2024_final_V2.html")
 #Archive ------------------
 # Stacked_bar_graph <- plot_ly(Total_Scores, x = ~City, y = ~CivicSpark.Score, type = 'bar', name = 'Civic Spark',marker = list(color = 'grey')) %>%
 #   # add_trace(y = ~Green.House.Gas.Inventory.Score, name = 'Green House Gas Inventory') %>%

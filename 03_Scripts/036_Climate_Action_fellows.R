@@ -2,6 +2,7 @@
 source("./03_Scripts/000_init.R")
 ### Inputs------------------
 #update by hand
+
 cac_data <- read_csv("./02_inputs/Climate_Action_fellows.csv") %>% 
   clean_names() %>% 
   mutate(city = str_to_lower(city)) %>% 

@@ -95,7 +95,7 @@ Rankings are the culmination of two factors:
 
 **EV Score**
 is a ranking of total EV per Vehicles registered in each city
-```{r}
+```{r, echo=FALSE}
 fig_multi <- readRDS(file = "./EV_Score_and_totals.rds")
 fig_multi
 ```
@@ -176,7 +176,7 @@ line <- readRDS(file = "./line_graph.rds")
 line
 ```
 Calculations are using the least expensive Internal combustion F150 (Rear wheel drive) compared to the standard F150 Lightining with current tax credits. Standard 15,000 mile yearly range and Current PG&E kWh pricing and local gas price of $4.00 applied. Insurance, depreciation and a multitude of other factors were taken from national averages. Cost of ownership drops in year 7 due to salvage value. If you want to play around with the parameters use this tool:
-Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/
+Calculate your cost of Ownership https://atlaspolicy.com/fleet-procurement-analysis-tool/ 
 
 ## Car Fires
 ```{r, , echo=FALSE, fig.align = 'left', fig.width=5, fig.height=3}

@@ -19,7 +19,7 @@ total_tonnage_Jurisdiction_disposal <- read_xlsx("./02_inputs/Waste/Jurisdiction
 
 total_tonnage <- ggplotly(
   ggplot(total_tonnage_Jurisdiction_disposal, aes(x = jurisdiction, y = total_waste)) +
-    geom_bar(stat = "identity", fill = "black", color = "brown") +
+    geom_bar(stat = "identity", fill = "tan", color = "black") +
     labs( x = "Jurisdiction", y = "Landfill Tonnage") +
     theme(legend.position = "bottom", axis.text.x = element_text(angle = 45, hjust = 1), panel.background = element_blank())
 )

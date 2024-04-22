@@ -3,10 +3,16 @@
 source("./03_Scripts/000_init.R")
 
 EV_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
-EV_stations_total_ccc <- readRDS(file = "./04_Outputs/rds/EV_stations_total_ccc.rds")
+EV_stations_total_ccc <- readRDS(file = "./04_Outputs/rds/EV_stations_total_ccc.rds") 
+
 EV_stations_ccc <- readRDS( file = "./04_Outputs/rds/EV_stations_ccc.rds") %>% 
   mutate(Total_stations = as.numeric(Total_stations)) %>% 
-  rename(ev_network = EV.Network)
+  rename(ev_network = EV.Network) %>% 
+  filter(ID != as.numeric("306576"),
+         ID != as.numeric("306577"),
+         ID != as.numeric("306575"))
+
+
 Hydrogen_stations <- readRDS(file = "./04_Outputs/rds/Hydrogen_stations.rds")
 CNG_stations <- readRDS(file = "./04_Outputs/rds/EV_stations.rds")
 #style------------------
